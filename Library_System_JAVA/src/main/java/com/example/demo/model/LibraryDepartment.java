@@ -1,4 +1,4 @@
-package model;
+package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +11,7 @@ public class LibraryDepartment {
 	private ArrayList <Calendar> workingtimes;
 	private ArrayList <Book> bookQueForFutureCheckout;
 	
+	//chemestry, mathematics, physics, business, IT, languages, poetry
 	
 	
 	public boolean giveBook(Book gBook) {

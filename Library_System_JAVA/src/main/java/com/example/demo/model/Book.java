@@ -1,4 +1,4 @@
-package model;
+package com.example.demo.model;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -12,8 +12,8 @@ public class Book {
 	private String title;
 	private String author;
 	private float rating;
-	private BookCondition condition;
-	private BookRarity rarity;
+	private String condition;	//good, bad, perfect
+	private String rarity;		//common, rare, veryRare 
 	private String anotation;
 	
 	
@@ -25,7 +25,7 @@ public class Book {
 	}
 
 	
-	public Book(int[] isbn, Calendar year, String title, String author, float rating, BookCondition condition, BookRarity rarity) {
+	public Book(int[] isbn, Calendar year, String title, String author, float rating, String condition, String rarity, String anotation) {
 		super();
 		this.isbn = isbn;
 		this.year = year;
@@ -34,6 +34,7 @@ public class Book {
 		this.rating = rating;
 		this.condition = condition;
 		this.rarity = rarity;
+		this.anotation = anotation;
 	}
 	
 	
@@ -46,7 +47,7 @@ public class Book {
 	}
 
 
-	public void setIsnb(int[] isbn) {
+	public void setIsbn(int[] isbn) {
 		int[] temp = new int[10];
 		for (int i = 0; i < isbn.length; i++) {
 			if(isbn[i] <= 0) {
@@ -106,28 +107,38 @@ public class Book {
 	}
 
 
-	public BookCondition getCondition() {
+	public String getCondition() {
 		return condition;
 	}
 
 
-	public void setCondition(BookCondition condition) {
+	public void setCondition(String condition) {
 		this.condition = condition;
 	}
 
 
-	public BookRarity getRarity() {
+	public String getRarity() {
 		return rarity;
 	}
 
 
-	public void setRarity(BookRarity rarity) {
+	public void setRarity(String rarity) {
 		this.rarity = rarity;
 	}
 
+	public String getAnotation() {
+		return anotation;
+	}
+
+
+	public void setAnotation(String anotation) {
+		this.anotation = anotation;
+	}
+	
 	
 	
 	//To string
+
 
 	@Override
 	public String toString() {
