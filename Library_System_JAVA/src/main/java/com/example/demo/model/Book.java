@@ -7,7 +7,7 @@ public class Book {
 
 	//Mainigie
 	
-	private int[] isbn;
+	private int[] lesisbn;
 	private Calendar year;
 	private String title;
 	private String author;
