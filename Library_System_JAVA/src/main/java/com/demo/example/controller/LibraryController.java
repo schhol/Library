@@ -53,8 +53,6 @@ public class LibraryController {
 		
 		
 		
-		
-		
 		return "ok";
 	}
 	

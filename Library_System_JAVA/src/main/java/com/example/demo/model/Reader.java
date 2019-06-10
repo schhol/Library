@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,11 +32,6 @@ public class Reader{
 	
 	@Column(name = "BookList")
 	private ArrayList <Book> currentTakenBookList;
-	
-	@OneToOne
-	@JoinColumn(name = "Id_u")
-	private User userRead;
-	
 	
 	
 	//Konstruktori
@@ -92,23 +85,7 @@ public class Reader{
 	public void takeABook(Book book) {
 		this.currentTakenBookList.add(book);
 	}
-	
-	public int getId_r() {
-		return id_r;
-	}
-	
-	public User getUserRead() {
-		return userRead;
-	}
 
-	public void setUserRead(User userRead) {
-		this.userRead = userRead;
-	}
-
-	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "ID: " + id_r + ", name: " + name + ", surname: " + surname + ", currentTakenBookList: " + currentTakenBookList;
