@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ReaderTable")
@@ -17,20 +19,35 @@ public class Reader{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Id_r")
 	private int id_r;
+	
+	@NotNull
+	@Size(min = 3, max = 15)
+	@Column(name = "Name")
 	private String name;
+	
+	@NotNull
+	@Size(min = 3, max = 15)
+	@Column(name = "Surname")
 	private String surname;
+	
+	@Column(name = "BookList")
 	private ArrayList <Book> currentTakenBookList;
 	
+	
+	//Konstruktori
 	
 	public Reader(){
 		
 	}
 	
-	public Reader(String name, String surname) {
+	public Reader(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname) {
 		setName(name);
 		setSurname(surname);
 	}
 	
+	
+	
+	//set un get
 	
 	public String getName() {
 		return name;
@@ -68,6 +85,15 @@ public class Reader{
 	public void takeABook(Book book) {
 		this.currentTakenBookList.add(book);
 	}
+
+	@Override
+	public String toString() {
+		return "ID: " + id_r + ", name: " + name + ", surname: " + surname + ", currentTakenBookList: " + currentTakenBookList;
+	}
+	
+	
+	
+	
 	
 	
 }
