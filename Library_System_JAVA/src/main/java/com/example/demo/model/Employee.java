@@ -32,5 +32,50 @@ public class Employee {
 	
 	@Column(name = "Department")
 	private String department;
+
+	
+	//Constructors
+	
+	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname,
+			String department) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.department = department;
+	}
+	
+	public Employee() {
+		super();
+	}
+
+		//Get && Set
+		public int getId_e() {
+		return id_e;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	
 	
 }
