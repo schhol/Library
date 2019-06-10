@@ -32,6 +32,9 @@ public class User {
 		@OneToOne(mappedBy = "userEmp")
 		private Employee employee;
 		
+		@OneToOne(mappedBy = "userRead")
+		private Reader reader;
+		
 		//Constructors
 		public User() {
 			super();
