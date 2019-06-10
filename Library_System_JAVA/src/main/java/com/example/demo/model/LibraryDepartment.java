@@ -33,27 +33,54 @@ public class LibraryDepartment {
 	
 	@Column(name = "EmployeesInDepartment")
 	private ArrayList <Employee> allEmployees;
-	
+
+
 
 	
 	//chemestry, mathematics, physics, business, IT, languages, poetry
+	//Constructors
+	public LibraryDepartment(Collection<Book> booklist, @NotNull @Size(min = 3, max = 10) String specialization,
+			ArrayList<Employee> allEmployees) {
+		super();
+		this.booklist = booklist;
+		this.specialization = specialization;
+		this.allEmployees = allEmployees;
+	}
+
+	public LibraryDepartment() {
+		super();
+	}
+
 	
-	
-	public boolean giveBook(Book gBook) {
-		return true;
+	//Get & Set
+	public Collection<Book> getBooklist() {
+		return booklist;
+	}
+
+	public void setBooklist(Collection<Book> booklist) {
+		this.booklist = booklist;
+	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
+	}
+
+	public ArrayList<Employee> getAllEmployees() {
+		return allEmployees;
+	}
+
+	public void setAllEmployees(ArrayList<Employee> allEmployees) {
+		this.allEmployees = allEmployees;
+	}
+
+	public int getId_dp() {
+		return id_dp;
 	}
 	
-	public boolean takeBook(Book tBook) {
-		return true;
-	}
-	
-	public void addBook(Book newBook) {
-		
-	}
-	
-	public boolean removeBook() {
-		return true;
-	}
 	
 	
 	
