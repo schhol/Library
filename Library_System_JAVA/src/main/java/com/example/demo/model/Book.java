@@ -22,20 +22,19 @@ public class Book {
 	//Konstruktori
 	
 	public Book() {
-		super();
 	}
 
 	
 	public Book(int[] isbn, Calendar year, String title, String author, float rating, String condition, String rarity, String anotation) {
 		super();
-		this.isbn = isbn;
-		this.year = year;
-		this.title = title;
-		this.author = author;
-		this.rating = rating;
-		this.condition = condition;
-		this.rarity = rarity;
-		this.anotation = anotation;
+		setIsbn(isbn);
+		setYear(year);
+		setTitle(title);
+		setAuthor(author);
+		setRating(rating);
+		setCondition(condition);
+		setRarity(rarity);
+		setAnotation(anotation);
 	}
 	
 	
@@ -51,7 +50,7 @@ public class Book {
 	public void setIsbn(int[] isbn) {
 		int[] temp = new int[10];
 		for (int i = 0; i < isbn.length; i++) {
-			if(isbn[i] <= 0) {
+			if(isbn[i] >= 0) {
 				temp[i] = isbn[i];
 			}
 		}
