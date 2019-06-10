@@ -8,7 +8,7 @@ public class Person {
 	private String name;
 	private String surname;
 	
-	
+	//sita klase nevajadzes
 	
 	//Konstruktori
 	
