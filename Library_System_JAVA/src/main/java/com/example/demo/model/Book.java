@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 public class Book {
 
 	//Mainigie
+	//Baigais galax
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
