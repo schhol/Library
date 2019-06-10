@@ -29,6 +29,8 @@ public class User {
 		@Column(name = "Password")
 		private String password;
 
+		@OneToOne(mappedBy = "userEmp")
+		private Employee employee;
 		
 		//Constructors
 		public User() {
