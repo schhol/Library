@@ -3,18 +3,61 @@ package com.example.demo.model;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "BookTable")
 public class Book {
 
 	//Mainigie
-	//ja labs sis bija
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Id_b")
+	private int id_b;
+	
+	@NotNull
+	@Size(min = 10, max = 10)
+	@Column(name = "ISBN")
 	private int[] isbn;
+	
 	private Calendar year;
+	
+	@NotNull
+	@Size(min = 3, max = 15)
+	@Column(name = "Title")
 	private String title;
+	
+	@NotNull
+	@Size(min = 8, max =26)
+	@Column(name = "Author")
 	private String author;
+	
+	@NotNull
+	@Size(min = 4, max = 10)
+	@Column(name = "Rating")
 	private float rating;
+	
+	@NotNull
+	@Size(min = 4, max = 10)
+	@Column(name = "Condition")
 	private String condition;	//good, bad, perfect
+	
+	@NotNull
+	@Size(min = 4, max = 10)
+	@Column(name = "Rarity")
 	private String rarity;		//common, rare, veryRare 
+	
+	@NotNull
+	@Size(min = 10, max = 200)
+	@Column(name = "Anotation")
 	private String anotation;
 	
 	
