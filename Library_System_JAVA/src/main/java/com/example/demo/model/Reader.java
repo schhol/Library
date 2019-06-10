@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 
-public class Reader extends Person{
+public class Reader{
 	
 	private int id_r;
 	private String name;
