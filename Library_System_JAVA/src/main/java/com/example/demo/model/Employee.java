@@ -81,6 +81,17 @@ public class Employee {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+
+	public User getUserEmp() {
+		return userEmp;
+	}
+
+	public void setUserEmp(User userEmp) {
+		this.userEmp = userEmp;
+	}
+	
+	
+
 	
 	
 }
