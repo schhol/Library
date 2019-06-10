@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class LibraryDepartment {
 	
 	private ArrayList <Book> booklist;
-	private Specialization specialization;
+	private String specialization;
 	private ArrayList <Employee> allEmployees;
 	private ArrayList <Calendar> workingtimes;
 	private ArrayList <Book> bookQueForFutureCheckout;

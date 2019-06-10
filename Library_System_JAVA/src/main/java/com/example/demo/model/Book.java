@@ -6,8 +6,9 @@ import java.util.Calendar;
 public class Book {
 
 	//Mainigie
+	//ja labs sis bija
 	
-	private int[] lesisbn;
+	private int[] isbn;
 	private Calendar year;
 	private String title;
 	private String author;
