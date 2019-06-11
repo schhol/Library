@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class Book {
 	@Column(name = "ISBN")
 	private int[] isbn;
 	
-	private Calendar year;
+	private Date year;
 	
 	@NotNull
 	@Size(min = 3, max = 15)
@@ -73,7 +73,7 @@ public class Book {
 	}
 
 	
-	public Book(int[] isbn, Calendar year, String title, String author, float rating, String condition, String rarity, String anotation) {
+	public Book(int[] isbn, Date year, String title, String author, float rating, String condition, String rarity, String anotation) {
 		super();
 		setIsbn(isbn);
 		setYear(year);
@@ -107,12 +107,12 @@ public class Book {
 	}
 
 
-	public Calendar getYear() {
+	public Date getYear() {
 		return year;
 	}
 
 	
-	public void setYear(Calendar year) {
+	public void setYear(Date year) {
 		this.year = year;
 	}
 
