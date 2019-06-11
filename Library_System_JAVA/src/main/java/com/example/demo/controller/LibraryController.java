@@ -92,7 +92,7 @@ public class LibraryController {
 	
 	//Home screen
 	//kim
-	@GetMapping(value = "Home")
+	@GetMapping(value = "/Home")
 	public String Homescreen() {
 		return "homescreen";
 	}
