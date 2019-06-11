@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -34,7 +35,8 @@ public class Reader{
 	@Column(name = "BookList")
 	private ArrayList <Book> currentTakenBookList;
 	
-	@OneToOne(mappedBy = "Id_u")
+	@OneToOne
+	@JoinColumn(name = "Id_u")
 	private User userRead;
 	
 	
