@@ -46,9 +46,10 @@ public class Reader{
 		
 	}
 	
-	public Reader(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname) {
+	public Reader(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname, User userRead) {
 		setName(name);
 		setSurname(surname);
+		setUserRead(userRead);
 	}
 	
 	

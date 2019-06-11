@@ -70,6 +70,10 @@ public class LibraryController {
 		employeeRepo.save(emp1);
 		employeeRepo.save(emp2);
 		
+		Reader r1 = new  Reader("Janis", "Kalnins", u1);
+		Reader r2 = new  Reader("Liga", "Kalnina", u2);
+		readerRepo.save(r1);
+		readerRepo.save(r2);
 		
 		
 		
@@ -118,7 +122,7 @@ public class LibraryController {
 	public String registration(User user){
 		return "registration";
 	}
-	
+	/*
 	@PostMapping(value = "/registration")
 	public String registrationPost(User user){
 		String name = user.getReader().getName();
@@ -126,7 +130,7 @@ public class LibraryController {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
-		Reader newReader = new Reader(name, surname);
+		/*Reader newReader = new Reader(name, surname);
 		User newUser = new User(username, password);
 		
 		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
@@ -141,10 +145,12 @@ public class LibraryController {
 			return "redirect:/authorise";
 		}
 		
-		else{
-			return  "registerfail";
+		
+		//else{
+			//return  "registerfail";
 		}
-	}
+*/
+	//}
 	
 	
 	

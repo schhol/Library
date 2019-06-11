@@ -86,8 +86,5 @@ public class User {
 			this.reader = reader;
 		}
 		
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
+
 }

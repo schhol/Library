@@ -49,10 +49,10 @@ public class Employee {
 	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname,
 			LibraryDepartment department, User userEmp) {
 		super();
-		this.name = name;
-		this.surname = surname;
-		this.department = department;
-		this.userEmp = userEmp;
+		setName(name);
+		setSurname(surname);
+		setDepartment(department);
+		setUserEmp(userEmp);
 	}
 	
 
