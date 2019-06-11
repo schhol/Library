@@ -126,17 +126,16 @@ public class LibraryController {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
-		Reader newReader = new Reader(name, surname);
 		User newUser = new User(username, password);
+		Reader newReader = new Reader(name, surname);
+		newUser.setReader(newReader);
+		newReader.setUserRead(newUser);
 		
 		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		
 		if(userTemp == null) {
 			
-			newUser.setReader(newReader);
 			userRepo.save(newUser);
-			
-			newReader.setUserRead(newUser);
 			readerRepo.save(newReader);
 			return "redirect:/authorise";
 		}
