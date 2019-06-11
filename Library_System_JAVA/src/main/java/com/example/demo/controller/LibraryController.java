@@ -1,4 +1,4 @@
-package com.demo.example.controller;
+package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,7 @@ public class LibraryController {
 		userRepo.save(u5);
 		userRepo.save(u6);
 		
-		
+		System.out.println("User count: " + userRepo.count());
 		
 		return "ok";
 	}

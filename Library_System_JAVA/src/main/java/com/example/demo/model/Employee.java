@@ -41,6 +41,9 @@ public class Employee {
 	
 	//Constructors
 	
+	public Employee() {
+	}
+	
 	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname,
 			String department) {
 		super();
@@ -49,12 +52,10 @@ public class Employee {
 		this.department = department;
 	}
 	
-	public Employee() {
-		super();
-	}
 
-		//Get && Set
-		public int getId_e() {
+	//Get && Set
+	
+	public int getId_e() {
 		return id_e;
 	}
 	
