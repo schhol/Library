@@ -60,11 +60,11 @@ public class LibraryController {
 			inSystem = true;
 			id = userTemp.getId_u();
 			System.out.println(id);
-			return "ok";
+			return "redirect:/Home";
 		}
 		
 		else {
-			return "redirect:/error";
+			return "authorisefail";
 		}
 		
 	}
@@ -102,8 +102,6 @@ public class LibraryController {
 		}
 
 	}
-
-	//vai darbojas? pt. 2
 	
 	
 	

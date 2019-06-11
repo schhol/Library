@@ -3,8 +3,8 @@
 	<head>
 	<style>
 	a:link, a:visited {
-	  background-color: blue;
-	  color: white;
+	  background-color: #CCCFD9;
+	  color: #474B58;
 	  padding: 15px 25px;
 	  text-align: center;
 	  text-decoration: none;
@@ -12,13 +12,14 @@
 	}
 	
 	a:hover, a:active {
-	  background-color: aqua;
+	  background-color: #474B58;
+	  color: white
 	}
 	</style>
 	</head>
 	
 	<body>
-		<h2 align="center" style="color: blue;">Authorisation</h2><br>
+		<h1 align="center">Authorisation</h1><br>
 		<form action ="#" th:action = "@{/authorise}" th:object = "${user}" method = "post">
 			<div align="center">Username:</div><br>
 			<div align="center"><input type="text" th:field = "*{username}"/></div><br>
@@ -26,6 +27,9 @@
 			<div align="center"><input type="password" th:field = "*{password}"/></div><br>
 			<div align="center"> <input type="submit" value = "Authorise"/></div><br>
 		</form>
-		<div align = "center"><a href="http://localhost:8080/registration">Register</a></div><br>
+		<div align = "center">
+		<a href="http://localhost:8080/registration">Register</a>
+		<a href="http://localhost:8080/Home">Home</a>
+		</div><br>
 	</body>
  </html>
