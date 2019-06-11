@@ -70,6 +70,10 @@ public class LibraryController {
 		employeeRepo.save(emp1);
 		employeeRepo.save(emp2);
 		
+		Reader r1 = new  Reader("Janis", "Kalnins", u1);
+		Reader r2 = new  Reader("Liga", "Kalnina", u2);
+		readerRepo.save(r1);
+		readerRepo.save(r2);
 		
 		
 		
@@ -86,7 +90,7 @@ public class LibraryController {
 		return "ok";
 	}
 	
-	
+	//nu nez
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
 	public String authorise(User user){
@@ -118,7 +122,7 @@ public class LibraryController {
 	public String registration(User user){
 		return "registration";
 	}
-	
+	/*
 	@PostMapping(value = "/registration")
 	public String registrationPost(User user){
 		String name = user.getReader().getName();
@@ -126,6 +130,10 @@ public class LibraryController {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
+<<<<<<< HEAD
+=======
+		/*Reader newReader = new Reader(name, surname);
+>>>>>>> branch 'master' of https://github.com/schhol/Library.git
 		User newUser = new User(username, password);
 		Reader newReader = new Reader(name, surname);
 		newUser.setReader(newReader);
@@ -140,10 +148,12 @@ public class LibraryController {
 			return "redirect:/authorise";
 		}
 		
-		else{
-			return  "registerfail";
+		
+		//else{
+			//return  "registerfail";
 		}
-	}
+*/
+	//}
 	
 	
 	
