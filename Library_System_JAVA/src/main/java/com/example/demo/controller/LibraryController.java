@@ -122,7 +122,7 @@ public class LibraryController {
 	public String registration(User user){
 		return "registration";
 	}
-	/*
+	
 	@PostMapping(value = "/registration")
 	public String registrationPost(User user){
 		String name = user.getReader().getName();
@@ -130,33 +130,24 @@ public class LibraryController {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
-<<<<<<< HEAD
-=======
-		/*Reader newReader = new Reader(name, surname);
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 		User newUser = new User(username, password);
-		Reader newReader = new Reader(name, surname);
+		Reader newReader = new Reader(name, surname, newUser);
 		newUser.setReader(newReader);
-		newReader.setUserRead(newUser);
 		
 		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		
 		if(userTemp == null) {
-			
 			userRepo.save(newUser);
 			readerRepo.save(newReader);
 			return "redirect:/authorise";
 		}
 		
 		
-		//else{
-			//return  "registerfail";
+		else{
+			return  "registerfail";
 		}
-*/
-	//}
-	
-	
-	
+
+	}
 	
 	
 	
