@@ -155,8 +155,8 @@ public class LibraryController {
 		}
 
 	}
-	//labs
-	
+
+	//vai darbojas?
 	
 	
 	
