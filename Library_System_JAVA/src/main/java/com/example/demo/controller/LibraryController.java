@@ -90,7 +90,13 @@ public class LibraryController {
 		return "ok";
 	}
 	
-	//nu nez
+	//Home screen
+	@GetMapping(value = "Home")
+	public String Homescreen() {
+		return "homescreen";
+	}
+	
+	
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
 	public String authorise(User user){
