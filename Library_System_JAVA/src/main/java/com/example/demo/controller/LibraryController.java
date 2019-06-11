@@ -83,7 +83,7 @@ public class LibraryController {
 			inSystem = true;
 			id = userTemp.getId_u();
 			System.out.println(id);
-			return "redirect:/ok";
+			return "ok";
 		}
 		
 		else {
