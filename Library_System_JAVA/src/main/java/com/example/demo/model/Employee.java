@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -31,12 +32,13 @@ public class Employee {
 	@Column(name = "Surame")
 	private String surname;
 	
-	@Column(name = "Department")
-	private String department;
-	
 	@OneToOne
 	@JoinColumn(name = "Id_u")
 	private User userEmp;
+	
+	@ManyToOne
+	@JoinColumn(name = "Id_dp")
+	private LibraryDepartment department;
 
 	
 	//Constructors
@@ -45,11 +47,12 @@ public class Employee {
 	}
 	
 	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname,
-			String department) {
+			LibraryDepartment department, User userEmp) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.department = department;
+		this.userEmp = userEmp;
 	}
 	
 
@@ -75,13 +78,23 @@ public class Employee {
 		this.surname = surname;
 	}
 
-	public String getDepartment() {
+	public LibraryDepartment getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(String department) {
+	public void setDepartment(LibraryDepartment department) {
 		this.department = department;
 	}
+
+	public User getUserEmp() {
+		return userEmp;
+	}
+
+	public void setUserEmp(User userEmp) {
+		this.userEmp = userEmp;
+	}
+	
+	
 	
 	
 }

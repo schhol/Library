@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.BookRepo;
+import com.example.demo.model.Employee;
 import com.example.demo.model.EmployeeRepo;
+import com.example.demo.model.LibraryDepartment;
 import com.example.demo.model.LibraryDepartmentRepo;
 import com.example.demo.model.ReaderRepo;
 import com.example.demo.model.User;
@@ -36,9 +42,7 @@ public class LibraryController {
 	
 	@GetMapping(value = "/testingData")
 	public String testingData(){
-	
-		int[] ibn = {1,1,1,1,1,1,1,1,1,1};
-		Date date = new Date(2010);
+
 		//Users for readers
 		User u1 = new User("Janis", "111");
 		User u2 = new User("Liga", "222");
@@ -49,15 +53,31 @@ public class LibraryController {
 		User u5 = new User("Ivo", "555");
 		User u6 = new User("Baiba", "666");
 		
-		Book b1 = new Book(ibn, date,"book", "Dude", 10, "GOOD", "Common", "Good book about dudes");
-		
-				
 		userRepo.save(u1);
 		userRepo.save(u2);
 		userRepo.save(u3);
 		userRepo.save(u4);
 		userRepo.save(u5);
 		userRepo.save(u6);
+		
+		LibraryDepartment ld1 = new LibraryDepartment("Jokes");
+		libraryDepartmentRepo.save(ld1);
+		
+		Employee emp1 = new Employee("Anna", "Berzina", ld1, u4);
+		Employee emp2 = new Employee("Ivo", "Berzins", ld1, u5);
+		employeeRepo.save(emp1);
+		employeeRepo.save(emp2);
+		
+		
+		
+		
+		Book b1 = new Book("1111111111", 2010 ,"book", "Dude", 4.9, "GOOD", "Common", "Good book about dudes", ld1);
+		Book b2 = new Book("1112211111", 2010 ,"gramata", "Picasso", 4.5, "GOOD", "Common", "Good book about art", ld1);
+
+		bookRepo.save(b1);
+		bookRepo.save(b2);
+				
+
 		
 		System.out.println("User count: " + userRepo.count());
 		

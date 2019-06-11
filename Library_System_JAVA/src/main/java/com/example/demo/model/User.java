@@ -69,4 +69,21 @@ public class User {
 		public void setPassword(String password) {
 			this.password = password;		
 		}
+
+		public Employee getEmployee() {
+			return employee;
+		}
+
+		public void setEmployee(Employee employee) {
+			this.employee = employee;
+		}
+
+		public Reader getReader() {
+			return reader;
+		}
+
+		public void setReader(Reader reader) {
+			this.reader = reader;
+		}
+		
 }

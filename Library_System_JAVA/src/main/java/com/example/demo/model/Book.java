@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
+
 
 @Entity
 @Table(name = "BookTable")
@@ -28,10 +32,10 @@ public class Book {
 	
 	@NotNull
 	@Size(min = 10, max = 10)
-	@Column(name = "ISBN")
-	private int[] isbn;
+	@Column(name = "ISBN" )
+	private String isbn;
 	
-	private Date year;
+	private int year;
 	
 	@NotNull
 	@Size(min = 3, max = 15)
@@ -39,17 +43,16 @@ public class Book {
 	private String title;
 	
 	@NotNull
-	@Size(min = 8, max =26)
+	@Size(min = 4, max =26)
 	@Column(name = "Author")
 	private String author;
 	
-	@NotNull
-	@Size(min = 4, max = 10)
+	
 	@Column(name = "Rating")
-	private float rating;
+	private double rating;
 	
 	@NotNull
-	@Size(min = 4, max = 10)
+	@Size(min = 3, max = 10)
 	@Column(name = "Condition")
 	private String condition;	//good, bad, perfect
 	
@@ -74,7 +77,7 @@ public class Book {
 	}
 
 	
-	public Book(int[] isbn, Date year, String title, String author, float rating, String condition, String rarity, String anotation) {
+	public Book(String isbn, int year, String title, String author, double rating, String condition, String rarity, String anotation, LibraryDepartment department) {
 		super();
 		setIsbn(isbn);
 		setYear(year);
@@ -84,6 +87,7 @@ public class Book {
 		setCondition(condition);
 		setRarity(rarity);
 		setAnotation(anotation);
+		setDepartment(department);
 	}
 	
 	
@@ -91,29 +95,23 @@ public class Book {
 	
 	//Set un get
 	
-	public int[] getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
 
-	public void setIsbn(int[] isbn) {
-		int[] temp = new int[10];
-		for (int i = 0; i < isbn.length; i++) {
-			if(isbn[i] >= 0) {
-				temp[i] = isbn[i];
-			}
-		}
-		
-		this.isbn = temp;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 
-	public Date getYear() {
+	public int getYear() {
 		return year;
 	}
 
 	
-	public void setYear(Date year) {
+	public void setYear(int year) {
+		if(year > 1750 && year <= 2019)
 		this.year = year;
 	}
 
@@ -144,12 +142,12 @@ public class Book {
 	}
 
 
-	public float getRating() {
+	public double getRating() {
 		return rating;
 	}
 
 
-	public void setRating(float rating) {
+	public void setRating(double rating) {
 		if(rating >= 0 && rating <= 5) {
 			this.rating = rating;
 		}
@@ -184,14 +182,25 @@ public class Book {
 		this.anotation = anotation;
 	}
 	
+		public LibraryDepartment getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(LibraryDepartment department) {
+		this.department = department;
+	}
 	
 	
 	//To string
 
 
+
+
+
 	@Override
 	public String toString() {
-		return "Book isbn: " + Arrays.toString(isbn) + ", year: " + year + ", title: " + title + ", author: " + author + ", rating: " + rating + ", condition: " + condition + ", rarity: " + rarity;
+		return "Book isbn: " + isbn + ", year: " + year + ", title: " + title + ", author: " + author + ", rating: " + rating + ", condition: " + condition + ", rarity: " + rarity;
 	}
 
 	

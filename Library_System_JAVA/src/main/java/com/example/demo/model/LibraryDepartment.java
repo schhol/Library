@@ -31,20 +31,17 @@ public class LibraryDepartment {
 	@Column(name = "Specialization")
 	private String specialization;
 	
-	@Column(name = "EmployeesInDepartment")
-	private ArrayList <Employee> allEmployees;
+	@OneToMany(mappedBy = "department")
+	private Collection<Employee> allEmployees;
 
 
 
 	
 	//chemestry, mathematics, physics, business, IT, languages, poetry
 	//Constructors
-	public LibraryDepartment(Collection<Book> booklist, @NotNull @Size(min = 3, max = 10) String specialization,
-			ArrayList<Employee> allEmployees) {
+	public LibraryDepartment( @NotNull @Size(min = 3, max = 10) String specialization) {
 		super();
-		this.booklist = booklist;
 		this.specialization = specialization;
-		this.allEmployees = allEmployees;
 	}
 
 	public LibraryDepartment() {
@@ -53,13 +50,6 @@ public class LibraryDepartment {
 
 	
 	//Get & Set
-	public Collection<Book> getBooklist() {
-		return booklist;
-	}
-
-	public void setBooklist(Collection<Book> booklist) {
-		this.booklist = booklist;
-	}
 
 	public String getSpecialization() {
 		return specialization;
@@ -67,14 +57,6 @@ public class LibraryDepartment {
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
-	}
-
-	public ArrayList<Employee> getAllEmployees() {
-		return allEmployees;
-	}
-
-	public void setAllEmployees(ArrayList<Employee> allEmployees) {
-		this.allEmployees = allEmployees;
 	}
 
 	public int getId_dp() {
