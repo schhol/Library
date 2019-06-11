@@ -17,6 +17,7 @@ import com.example.demo.model.Employee;
 import com.example.demo.model.EmployeeRepo;
 import com.example.demo.model.LibraryDepartment;
 import com.example.demo.model.LibraryDepartmentRepo;
+import com.example.demo.model.Reader;
 import com.example.demo.model.ReaderRepo;
 import com.example.demo.model.User;
 import com.example.demo.model.UserRepo;
@@ -112,12 +113,38 @@ public class LibraryController {
 		
 	}
 	
+	//registracijas skats
+	@GetMapping(value = "/registration")
+	public String registration(User user){
+		return "registration";
+	}
 	
-	
-	
-	
-	
-	
+	@PostMapping(value = "/registration")
+	public String registrationPost(User user){
+		String name = user.getReader().getName();
+		String surname = user.getReader().getSurname();
+		String username = user.getUsername();
+		String password = user.getPassword();
+		
+		Reader newReader = new Reader(name, surname);
+		User newUser = new User(username, password);
+		
+		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+		
+		if(userTemp == null) {
+			
+			newUser.setReader(newReader);
+			userRepo.save(newUser);
+			
+			newReader.setUserRead(newUser);
+			readerRepo.save(newReader);
+			return "redirect:/authorise";
+		}
+		
+		else{
+			return  "registerfail";
+		}
+	}
 	
 	
 	
