@@ -77,8 +77,19 @@ public class LibraryController {
 	public String authorisePost(User user){
 		boolean inSystem = false;
 		int id = -1;
+		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		
-		return "redirect:/error";
+		if(userTemp != null) {
+			inSystem = true;
+			id = userTemp.getId_u();
+			System.out.println(id);
+			return "redirect:/ok";
+		}
+		
+		else {
+			return "redirect:/error";
+		}
+		
 	}
 	
 	
