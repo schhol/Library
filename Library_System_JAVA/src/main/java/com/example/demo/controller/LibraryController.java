@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.BookRepo;
@@ -83,5 +84,54 @@ public class LibraryController {
 		
 		return "ok";
 	}
+	
+	
+	//autorizacijas skats
+	@GetMapping(value = "/authorise")
+	public String authorise(User user){
+		return "authorise";
+	}
+		
+	//post-autorizacija, iegust lietotaja ievadito info
+	@PostMapping(value = "/authorise")
+	public String authorisePost(User user){
+		boolean inSystem = false;
+		int id = -1;
+		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+		
+		if(userTemp != null) {
+			inSystem = true;
+			id = userTemp.getId_u();
+			System.out.println(id);
+			return "ok";
+		}
+		
+		else {
+			return "redirect:/error";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
