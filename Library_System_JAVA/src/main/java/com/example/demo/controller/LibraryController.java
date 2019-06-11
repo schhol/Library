@@ -90,7 +90,7 @@ public class LibraryController {
 		return "ok";
 	}
 	
-	
+	//nu nez
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
 	public String authorise(User user){
