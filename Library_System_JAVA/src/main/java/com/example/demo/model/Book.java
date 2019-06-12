@@ -85,7 +85,6 @@ public class Book {
 
 	
 	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation, LibraryDepartment department) {
-		super();
 		setIsbn(isbn);
 		setYear(year);
 		setTitle(title);
