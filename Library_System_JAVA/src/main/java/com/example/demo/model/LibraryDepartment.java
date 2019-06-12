@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -28,8 +26,8 @@ public class LibraryDepartment {
 	
 	@NotNull
 	@Size(min = 3, max = 10)
-	@Column(name = "Specialization")
-	private String specialization;
+	@Column(name = "Title")
+	private String title;		//chemestry, mathematics, physics, business, IT, languages, poetry
 	
 	@OneToMany(mappedBy = "department")
 	private Collection<Employee> allEmployees;
@@ -37,31 +35,60 @@ public class LibraryDepartment {
 
 
 	
-	//chemestry, mathematics, physics, business, IT, languages, poetry
 	//Constructors
-	public LibraryDepartment( @NotNull @Size(min = 3, max = 10) String specialization) {
-		super();
-		this.specialization = specialization;
+	
+	public LibraryDepartment() {
+	}
+	
+	public LibraryDepartment(@NotNull @Size(min = 3, max = 10) String title) {
+		setTitle(title);
 	}
 
-	public LibraryDepartment() {
-		super();
-	}
+	
 
 	
 	//Get & Set
 
-	public String getSpecialization() {
-		return specialization;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
+	public void setTitle(String title) {
+		String tempTitle = "";
+		if(title.length() != 0) {
+			for (int i = 0; i < title.length(); i++) {
+				if(Character.isLetter(title.charAt(i)) || Character.isSpaceChar(title.charAt(i))){
+					tempTitle += title.charAt(i);
+				}
+			}
+			this.title = tempTitle;
+		}
+		else {
+			this.title = "Science";
+		}
 	}
 
 	public int getId_dp() {
 		return id_dp;
 	}
+
+	public Collection<Book> getBooklist() {
+		return booklist;
+	}
+
+	public void setBooklist(Collection<Book> booklist) {
+		this.booklist = booklist;
+	}
+
+	public Collection<Employee> getAllEmployees() {
+		return allEmployees;
+	}
+
+	public void setAllEmployees(Collection<Employee> allEmployees) {
+		this.allEmployees = allEmployees;
+	}
+	
+	
 	
 	
 	

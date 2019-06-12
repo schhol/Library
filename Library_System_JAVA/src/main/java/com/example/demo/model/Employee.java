@@ -46,8 +46,7 @@ public class Employee {
 	public Employee() {
 	}
 	
-	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname,
-			LibraryDepartment department, User userEmp) {
+	public Employee(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname, LibraryDepartment department, User userEmp) {
 		super();
 		setName(name);
 		setSurname(surname);
@@ -67,7 +66,18 @@ public class Employee {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		String nameTmp = "";
+		if(name.length() != 0) {
+			for (int i = 0; i < name.length(); i++) {
+				if(Character.isLetter(name.charAt(i))){
+					nameTmp += name.charAt(i);
+				}
+			}
+			this.name = nameTmp;
+		}
+		else {
+			this.name = "Ivo";
+		}
 	}
 
 	public String getSurname() {
@@ -75,7 +85,18 @@ public class Employee {
 	}
 
 	public void setSurname(String surname) {
-		this.surname = surname;
+		String surnameTmp = "";
+		if(surname.length() != 0) {
+			for (int i = 0; i < surname.length(); i++) {
+				if(Character.isLetter(surname.charAt(i))){
+					surnameTmp += surname.charAt(i);
+				}
+			}
+			this.surname = surnameTmp;
+		}
+		else {
+			this.surname = "Kalnins";
+		}
 	}
 
 	public LibraryDepartment getDepartment() {

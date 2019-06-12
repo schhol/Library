@@ -161,7 +161,6 @@ public class Book {
 		else {
 			this.title = "The book";
 		}
-		
 	}
 
 

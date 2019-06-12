@@ -62,12 +62,17 @@ public class Reader{
 
 	public void setName(String name) {
 		String nameTmp = "";
-		for (int i = 0; i < name.length(); i++) {
-			if(Character.isLetter(name.charAt(i))){
-				nameTmp += name.charAt(i);
+		if(name.length() != 0) {
+			for (int i = 0; i < name.length(); i++) {
+				if(Character.isLetter(name.charAt(i))){
+					nameTmp += name.charAt(i);
+				}
 			}
+			this.name = nameTmp;
 		}
-		this.name = nameTmp;
+		else {
+			this.name = "Ivo";
+		}
 	}
 	
 	
@@ -77,12 +82,17 @@ public class Reader{
 	
 	public void setSurname(String surname) {
 		String surnameTmp = "";
-		for (int i = 0; i < surname.length(); i++) {
-			if(Character.isLetter(surname.charAt(i))){
-				surnameTmp += surname.charAt(i);
+		if(surname.length() != 0) {
+			for (int i = 0; i < surname.length(); i++) {
+				if(Character.isLetter(surname.charAt(i))){
+					surnameTmp += surname.charAt(i);
+				}
 			}
+			this.surname = surnameTmp;
 		}
-		this.surname = surnameTmp;
+		else {
+			this.surname = "Kalnins";
+		}
 	}
 	
 	public ArrayList<Book> getCurrentTakenBookList() {
