@@ -39,7 +39,7 @@ public class LibraryController {
 	//kim
 	@GetMapping(value = "/Home")
 	public String Homescreen() {
-		return "homescreen";
+		return "homeguest";
 	}
 	
 	
