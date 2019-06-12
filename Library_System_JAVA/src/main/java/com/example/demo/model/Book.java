@@ -283,7 +283,14 @@ public class Book {
 	}
 	
 	
+	
+	
 	//To string
+
+	public void setTimesTaken(int timesTaken) {
+		this.timesTaken = timesTaken;
+	}
+
 
 	@Override
 	public String toString() {

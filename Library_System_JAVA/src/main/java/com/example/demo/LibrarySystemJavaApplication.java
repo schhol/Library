@@ -75,6 +75,13 @@ public class LibrarySystemJavaApplication {
 			Book b4 = new Book("1112211111", 2011 ,"sdaa", "Picaswsqssso", 4.5, "VeryGood", 4, "Good book about art", ld1);
 			Book b5 = new Book("1112211111", 2020 ,"asas", "Picaaasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
 			Book b6 = new Book("1112211111", 2016 ,"gsdsdsd", "Pissscasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
+			
+			b1.setTimesTaken(150);
+			b2.setTimesTaken(50);
+			b3.setTimesTaken(1);
+			b4.setTimesTaken(45);
+			b5.setTimesTaken(48);
+			b6.setTimesTaken(12);
 
 			bookRepo.save(b1);
 			bookRepo.save(b2);

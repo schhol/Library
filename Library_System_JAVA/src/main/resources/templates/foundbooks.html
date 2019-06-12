@@ -55,10 +55,8 @@ body {
   <font size="7">Library System</font>
 </div>
 
-<form action="#" th:action="@{/home}" method = "post">
-<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
-<input type="submit" value="Submit"></div><br>
-</form>
+<div align = "center"><input type="text" size="80"  placeholder ="Search..."/></div><br>
+
 <style>
 .sidebyside {
 	float: left;
@@ -106,7 +104,6 @@ table#t01 th {
 
 
 <table id="t01" align="left" style = "width:60%">
-	<caption align = "left"><font size = "5">Popular books this month:</font></caption>
   <tr>
     <th>Number</th>
     <th>Title</th>
@@ -114,7 +111,7 @@ table#t01 th {
     <th>Borrows</th>
     <th>Year</th>
   </tr>
-  <th:block th:each="book, iterStat : ${allbooks} ">
+  <th:block th:each="book, iterStat : ${booksfound} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
   	<td th:text="${book.getTitle()}"/>
@@ -129,9 +126,3 @@ table#t01 th {
 <div class = "link"><p>Phone: +37120202122</p></div>
 <div class = "link"><p>Address: Putnu 2</p></div>
 </div>
-
-
-
-  
-
-</body>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.BookRepo;
@@ -42,13 +43,55 @@ public class LibraryController {
 	//Home screen
 	@GetMapping(value = "/home")
 	public String Homescreen(Model model) {
-		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
+		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
+		ArrayList<Book> top5Books = new ArrayList<>();
+		
+		for (int i = 0; i < 5; i++) {
+			top5Books.add(allBooksFromDB.get(i));
+		}
+		
 		
 		//koment
-		model.addAttribute("allbooks", allBooksFromDB);
+		model.addAttribute("allbooks", top5Books);
 		return "homeguest";
 	}
 	
+	String keyword;
+	@PostMapping(value = "/home")
+	public String SearchBook(String keyname) {
+		
+		keyword = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundtable";
+	}
+	
+	//fixing
+	@GetMapping(value = "/foundtable")
+	public String booksFound(Model model) {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
+		System.out.println(keyword);
+		
+		int count = 0;
+		int year = 0;
+		for (int i = 0; i < keyword.length(); i++) {
+			if(Character.isDigit(keyword.charAt(i))) {
+				count++;
+			}
+		}
+		if(count == keyword.length()) {
+			 year = Integer.parseInt(keyword);
+		}
+		//TODO add caption to found table
+		foundBooks.addAll(bookRepo.findByAuthor(keyword));
+		
+		foundBooks.addAll(bookRepo.findByTitle(keyword));
+		
+		foundBooks.addAll(bookRepo.findByYear(year));
+		
+		model.addAttribute("booksfound", foundBooks);
+		
+		return "foundbooks";
+	}
 	
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
