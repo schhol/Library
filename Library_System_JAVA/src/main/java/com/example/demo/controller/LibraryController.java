@@ -43,7 +43,7 @@ public class LibraryController {
 	public String Homescreen(Model model) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
 		
-		
+		//koment
 		model.addAttribute("allbooks", allBooksFromDB);
 		return "homeguest";
 	}
