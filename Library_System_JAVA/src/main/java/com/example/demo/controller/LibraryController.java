@@ -40,15 +40,11 @@ public class LibraryController {
 	
 	//Home screen
 	//kim
-<<<<<<< HEAD
-	@GetMapping(value = "/Home")
-	public String Homescreen(Model model) {
-		//ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
+
+	//ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
 		
-=======
 	@GetMapping(value = "/home")
 	public String Homescreen() {
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 		return "homeguest";
 	}
 	
