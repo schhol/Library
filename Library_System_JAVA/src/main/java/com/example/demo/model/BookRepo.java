@@ -10,4 +10,5 @@ public interface BookRepo extends CrudRepository<Book, Integer> {
 
 	Book findByTitleAndAuthor(String title, String author);
 	
+	Book findById(int id_b);
 }

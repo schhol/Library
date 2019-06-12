@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.Book;
@@ -136,7 +137,14 @@ public class LibraryController {
 		}
 	}
 
-
+	
+	@GetMapping(value = "/guestBook/{id}")
+	public String guestBookView(Model model, @PathVariable(name = "id") int id) {
+		Book bookTemp = bookRepo.findById(id);
+		model.addAttribute("Book", bookTemp);
+		
+		return "bookviewguest";
+	}
 	
 	
 	
