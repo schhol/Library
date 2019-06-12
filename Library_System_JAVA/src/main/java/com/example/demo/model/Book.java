@@ -273,6 +273,14 @@ public class Book {
 		return (coppies > 0) ? true : false;
 	}
 	
+	public boolean addCopy() {
+		if(coppies < 5) {
+			this.coppies++;
+			return true;
+		}
+		else 
+			return false;
+	}
 	
 	
 	//To string

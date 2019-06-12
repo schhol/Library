@@ -119,22 +119,25 @@ public class LibraryController {
 		
 		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
 			
-		if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() <= 5) {
-				
+		if(bookTemp == null){
 			Book newBook = book;
 			bookRepo.save(newBook);
-			
-			return "redirect:/homeemployee";
+			return "redirect:/homeEmployee";
 		}
-			
+		
+		else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
+			bookTemp.addCopy();
+			bookRepo.save(bookTemp);
+			return "redirect:/homeEmployee";
+		}
+		
 		else{
-			return  "addbookfail";
+			return "addbookfail";
 		}
 	}
 
+
 	
-	
-	//comment
 	
 	
 	
