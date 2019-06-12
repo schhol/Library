@@ -69,8 +69,8 @@ public class LibrarySystemJavaApplication {
 			readerRepo.save(r1);
 					
 					
-			Book b1 = new Book("1111111111", 2010 ,"book", "Dude", 4.9, "GOOD", "Common", "Good book about dudes", ld1);
-			Book b2 = new Book("1112211111", 2010 ,"gramata", "Picasso", 4.5, "GOOD", "Common", "Good book about art", ld1);
+			Book b1 = new Book("1111111111", 2010 ,"book", "Dude", 4.9, "Good", 3, "Good book about dudes", ld1);
+			Book b2 = new Book("1112211111", 2010 ,"gramata", "Picasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
 
 			bookRepo.save(b1);
 			bookRepo.save(b2);

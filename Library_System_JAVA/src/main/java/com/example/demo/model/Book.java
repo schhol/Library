@@ -1,9 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -34,6 +29,9 @@ public class Book {
 	@Column(name = "ISBN" )
 	private String isbn;
 	
+	@NotNull
+	@Size(min = 4, max = 4)
+	@Column(name = "Year" )
 	private int year;
 	
 	@NotNull
@@ -46,7 +44,7 @@ public class Book {
 	@Column(name = "Author")
 	private String author;
 	
-	
+	@Size(min = 1, max = 1)
 	@Column(name = "Rating")
 	private double rating;
 	
@@ -56,14 +54,22 @@ public class Book {
 	private String condition;	//good, bad, perfect
 	
 	@NotNull
-	@Size(min = 4, max = 10)
+	@Size(min = 1, max = 1)
 	@Column(name = "Rarity")
-	private String rarity;		//common, rare, veryRare 
+	private int rarity;
 	
 	@NotNull
 	@Size(min = 10, max = 200)
 	@Column(name = "Anotation")
 	private String anotation;
+	
+	@Column(name = "TimesTaken")
+	private int timesTaken;
+	
+	@NotNull
+	@Size(min = 0, max = 5)
+	@Column(name = "Coppies")
+	private int coppies;
 	
 	@ManyToOne
 	@JoinColumn(name = "Id_dp")
@@ -73,10 +79,12 @@ public class Book {
 	//Konstruktori
 	
 	public Book() {
+		coppies++;
+		timesTaken = 0;
 	}
 
 	
-	public Book(String isbn, int year, String title, String author, double rating, String condition, String rarity, String anotation, LibraryDepartment department) {
+	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation, LibraryDepartment department) {
 		super();
 		setIsbn(isbn);
 		setYear(year);
@@ -87,6 +95,8 @@ public class Book {
 		setRarity(rarity);
 		setAnotation(anotation);
 		setDepartment(department);
+		coppies++;
+		timesTaken = 0;
 	}
 	
 	
@@ -100,7 +110,23 @@ public class Book {
 
 
 	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+		String isbnTemp = "";
+		if(isbn.length() != 10) {
+			this.isbn = "1111111111";
+		}
+		else {
+			for (int i = 0; i < isbn.length(); i++) {
+				if(Character.isDigit(isbn.charAt(i))){
+					isbnTemp += isbn.charAt(i);
+				}
+			}
+			if(isbnTemp.length() != 10) {
+				this.isbn = "1111111111";
+			}
+			else {
+				this.isbn = isbnTemp;
+			}
+		}
 	}
 
 
@@ -111,7 +137,9 @@ public class Book {
 	
 	public void setYear(int year) {
 		if(year > 1750 && year <= 2019)
-		this.year = year;
+			this.year = year;
+		else
+			this.year = 2019;
 	}
 
 
@@ -122,12 +150,18 @@ public class Book {
 
 	public void setTitle(String title) {
 		String tempTitle = "";
-		for (int i = 0; i < title.length(); i++) {
-			if(Character.isLetter(title.charAt(i))){
-				tempTitle += title.charAt(i);
+		if(title.length() != 0) {
+			for (int i = 0; i < title.length(); i++) {
+				if(Character.isLetter(title.charAt(i)) || Character.isSpaceChar(title.charAt(i))){
+					tempTitle += title.charAt(i);
+				}
 			}
+			this.title = tempTitle;
 		}
-		this.title = tempTitle;
+		else {
+			this.title = "The book";
+		}
+		
 	}
 
 
@@ -137,7 +171,18 @@ public class Book {
 
 
 	public void setAuthor(String author) {
-		this.author = author;
+		String authorTemp = "";
+		if(author.length() != 0) {
+			for (int i = 0; i < author.length(); i++) {
+				if(Character.isLetter(author.charAt(i)) || Character.isSpaceChar(author.charAt(i))){
+					authorTemp += author.charAt(i);
+				}
+			}
+			this.author = authorTemp;
+		}
+		else {
+			this.author = "Janis Berzins";
+		}
 	}
 
 
@@ -159,17 +204,31 @@ public class Book {
 
 
 	public void setCondition(String condition) {
-		this.condition = condition;
+		String conditionTemp = "";
+		if(condition.length() != 0) {
+			for (int i = 0; i < condition.length(); i++) {
+				if(Character.isLetter(condition.charAt(i))){
+					conditionTemp += condition.charAt(i);
+				}
+			}
+			this.condition = conditionTemp;
+		}
+		else {
+			this.condition = "Good";
+		}
 	}
 
 
-	public String getRarity() {
+	public int getRarity() {
 		return rarity;
 	}
 
 
-	public void setRarity(String rarity) {
-		this.rarity = rarity;
+	public void setRarity(int rarity) {
+		if(rarity >= 1 && rarity <= 5)
+			this.rarity = rarity;
+		else 
+			this.rarity = 1;
 	}
 
 	public String getAnotation() {
@@ -191,20 +250,45 @@ public class Book {
 	}
 	
 	
+	public int getTimesTaken() {
+		return timesTaken;
+	}
+	
+	public int getCoppies() {
+		return coppies;
+	}
+
+	public int getId_b() {
+		return id_b;
+	}
+
+	public boolean takeBook() {
+		if(isAvailable()) {
+			this.timesTaken ++;
+			this.coppies --;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void returnBook() {
+		this.coppies ++;
+	}
+
+	public boolean isAvailable() {
+		return (coppies > 0) ? true : false;
+	}
+	
+	
+	
 	//To string
-
-
-
-
 
 	@Override
 	public String toString() {
 		return "Book isbn: " + isbn + ", year: " + year + ", title: " + title + ", author: " + author + ", rating: " + rating + ", condition: " + condition + ", rarity: " + rarity;
 	}
 
-	
-	
-	
-	
 	
 }
