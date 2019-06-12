@@ -25,12 +25,10 @@ public class Book {
 	private int id_b;
 	
 	@NotNull
-	@Size(min = 10, max = 10)
 	@Column(name = "ISBN" )
 	private String isbn;
 	
 	@NotNull
-	@Size(min = 4, max = 4)
 	@Column(name = "Year" )
 	private int year;
 	
@@ -44,17 +42,14 @@ public class Book {
 	@Column(name = "Author")
 	private String author;
 	
-	@Size(min = 1, max = 1)
 	@Column(name = "Rating")
 	private double rating;
 	
 	@NotNull
-	@Size(min = 3, max = 10)
 	@Column(name = "Condition")
 	private String condition;	//good, bad, perfect
 	
 	@NotNull
-	@Size(min = 1, max = 1)
 	@Column(name = "Rarity")
 	private int rarity;
 	
@@ -67,7 +62,6 @@ public class Book {
 	private int timesTaken;
 	
 	@NotNull
-	@Size(min = 0, max = 5)
 	@Column(name = "Coppies")
 	private int coppies;
 	
@@ -85,7 +79,6 @@ public class Book {
 
 	
 	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation, LibraryDepartment department) {
-		super();
 		setIsbn(isbn);
 		setYear(year);
 		setTitle(title);

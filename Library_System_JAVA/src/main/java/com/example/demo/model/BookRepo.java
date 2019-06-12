@@ -8,4 +8,6 @@ public interface BookRepo extends CrudRepository<Book, Integer> {
 	
 	//ArrayList<Book> findByOrderByTimesTakenDesc();
 
+	Book findByTitleAndAuthor(String title, String author);
+	
 }

@@ -40,10 +40,15 @@ public class LibraryController {
 	
 	//Home screen
 	//kim
+<<<<<<< HEAD
 	@GetMapping(value = "/Home")
 	public String Homescreen(Model model) {
 		//ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
 		
+=======
+	@GetMapping(value = "/home")
+	public String Homescreen() {
+>>>>>>> branch 'master' of https://github.com/schhol/Library.git
 		return "homeguest";
 	}
 	
@@ -101,19 +106,39 @@ public class LibraryController {
 			return "redirect:/authorise";
 		}
 		
-		
 		else{
 			return  "registerfail";
 		}
-
 	}
 	
 	
+	//jaunas gramatas pievienosanas skats
+	@GetMapping(value = "/addBook")
+	public String addBook(Book book){
+		return "addbook";
+	}
+		
+	@PostMapping(value = "/addBook")
+	public String addBookPost(Book book){
+		
+		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
+			
+		if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() <= 5) {
+				
+			Book newBook = book;
+			bookRepo.save(newBook);
+			
+			return "redirect:/homeemployee";
+		}
+			
+		else{
+			return  "addbookfail";
+		}
+	}
+
 	
 	
-	
-	
-	
+	//comment
 	
 	
 	

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+	<head>
+	<style>
+	a:link, a:visited {
+	  background-color: #CCCFD9;
+	  color: #474B58;
+	  padding: 15px 25px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	}
+	
+	a:hover, a:active {
+	  background-color: #474B58;
+	  color: white
+	}
+	</style>
+	</head>
+	
+	<body>
+		<h1 align="center">New book</h1>
+		<form action ="#" th:action = "@{/addBook}" th:object = "${book}" method = "post">
+			<div align="center"> Title: </div>
+			<div align="center"><input type="text" th:field = "*{title}"/></div>
+			<div align="center"> Author: </div>
+			<div align="center"><input type="text" th:field = "*{author}"/></div>
+			<div align="center"> Year: </div>
+			<div align="center"><input type="text" th:field = "*{year}"/></div><br>
+			<div align="center"> Condition: </div>
+			<div align="center"><input type="text" th:field = "*{condition}"/></div>
+			<div align="center"> Rating: </div>
+			<div align="center"><input type="text" th:field = "*{rating}"/></div>
+			<div align="center"> Rarity: </div>
+			<div align="center"><input type="text" th:field = "*{rarity}"/></div><br>
+			<div align="center"> Annotation: </div>
+			<div align="center"><input type="text" th:field = "*{anotation}"/></div>
+			<div align="center"> ISBN: </div>
+			<div align="center"><input type="text" th:field = "*{isbn}"/></div>
+			<div align="center"> Department: </div>
+			<div align="center"><input type="text" th:field = "*{department.title}"/></div><br>
+			<div align="center"><input type="submit" value = "Add patient"/></div><br>
+		</form>
+		<div align = "center"><a href="http://localhost:8080/homeEmployee">Back to home</a></div><br>
+	</body>
+ </html>
