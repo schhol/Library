@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -38,7 +41,9 @@ public class LibraryController {
 	//Home screen
 	//kim
 	@GetMapping(value = "/Home")
-	public String Homescreen() {
+	public String Homescreen(Model model) {
+		//ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
+		
 		return "homeguest";
 	}
 	
