@@ -71,10 +71,17 @@ public class LibrarySystemJavaApplication {
 					
 			Book b1 = new Book("1111111111", 2010 ,"book", "Dude", 4.9, "Good", 3, "Good book about dudes", ld1);
 			Book b2 = new Book("1112211111", 2010 ,"gramata", "Picasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
+			Book b3 = new Book("1112211111", 2011 ,"sdfs", "Picddasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
+			Book b4 = new Book("1112211111", 2011 ,"sdaa", "Picaswsqssso", 4.5, "VeryGood", 4, "Good book about art", ld1);
+			Book b5 = new Book("1112211111", 2020 ,"asas", "Picaaasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
+			Book b6 = new Book("1112211111", 2016 ,"gsdsdsd", "Pissscasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
 
 			bookRepo.save(b1);
 			bookRepo.save(b2);
-			
+			bookRepo.save(b3);
+			bookRepo.save(b4);
+			bookRepo.save(b5);
+			bookRepo.save(b6);
 		}
 	}
 

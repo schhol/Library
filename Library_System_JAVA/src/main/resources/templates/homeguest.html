@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<html xmlns:th="www.thymeleaf.org">
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,10 +111,12 @@ table#t01 th {
     <th>Borrows</th>
     <th>Year</th>
   </tr>
+  <th:block th:each="book, iterStat : ${allbooks} ">
   <tr>
-  </tr>
-  <tr>
-
+  	<td th:text="${iterStat.count}"/>
+  	<td th:text="${book.getTitle()}"/>
+  	<td th:text="${book.getTimesTaken()}"/>
+  	<td th:text="${book.getYear()}"/>
   </tr>
 </table>
 

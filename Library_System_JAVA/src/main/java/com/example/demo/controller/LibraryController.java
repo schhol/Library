@@ -39,12 +39,12 @@ public class LibraryController {
 	
 	
 	//Home screen
-	//kim
-
-	//ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
-		
 	@GetMapping(value = "/home")
-	public String Homescreen() {
+	public String Homescreen(Model model) {
+		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findAll();
+		
+		
+		model.addAttribute("allbooks", allBooksFromDB);
 		return "homeguest";
 	}
 	
