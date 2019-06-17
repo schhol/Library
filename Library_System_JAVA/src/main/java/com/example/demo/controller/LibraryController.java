@@ -176,6 +176,15 @@ public class LibraryController {
 	}
 	
 	
+	@PostMapping(value = "/foundTableReader")
+	public String searchSearchBookReader(String keyname) {
+		
+		keywordReader = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableReader";
+	}
+	
+	
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
