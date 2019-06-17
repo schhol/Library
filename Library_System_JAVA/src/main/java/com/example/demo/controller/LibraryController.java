@@ -38,8 +38,7 @@ public class LibraryController {
 	
 	@Autowired
 	LibraryDepartmentRepo libraryDepartmentRepo;
-	
-	//ic okeij
+	//ok
 	
 	//------------------------------------------------------------------------------------------------------
 	//---------------------------------------------GUEST----------------------------------------------------
@@ -95,9 +94,20 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
+		model.addAttribute("keyword", keywordGuest);
 		model.addAttribute("booksfound", foundBooks);
 		
 		return "foundbooksguest";
+	}
+	
+	
+	
+	@PostMapping(value = "/foundTableGuest")
+	public String searchSearchBookGuest(String keyname) {
+		
+		keywordGuest = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableGuest";
 	}
 	
 	
@@ -166,12 +176,13 @@ public class LibraryController {
 		return "foundbooksguest";
 	}
 
-	@PostMapping(value = "/foundTableGuest")
-	public String searchSearchBookGuest(String keyname) {
+	@PostMapping(value = "/foundTableReader")
+	public String searchSearchBookReader(String keyname) {
 		
 		keywordReader = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableGuest";
+
+		return "foundbooksreader";
 	}
 	
 	
