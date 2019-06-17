@@ -40,7 +40,7 @@ public class LibraryController {
 	LibraryDepartmentRepo libraryDepartmentRepo;
 	
 	//------------------------------------------------------------------------------------------------------
-	//---------------------------------------GUEST----------------------------------------------------------
+	//---------------------------------------------GUEST----------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
 	
 	
@@ -58,16 +58,60 @@ public class LibraryController {
 		return "homeguest";
 	}
 	
-	String keyword;
+	
+	
+	String keywordGuest;
 	@PostMapping(value = "/homeGuest")
 	public String SearchBookGuest(String keyname) {
 		
-		keyword = keyname; 
+		keywordGuest = keyname; 
 		System.out.println("-------------------------------" + keyname);
 		return "redirect:/foundTableGuest";
 	}
 	
 	
+	
+	@GetMapping(value = "/foundTableGuest")
+	public String booksFoundGuest(Model model) {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
+		System.out.println(keywordGuest);
+		
+		int count = 0;
+		int year = 0;
+		for (int i = 0; i < keywordGuest.length(); i++) {
+			if(Character.isDigit(keywordGuest.charAt(i))) {
+				count++;
+			}
+		}
+		if(count == keywordGuest.length()) {
+			 year = Integer.parseInt(keywordGuest);
+		}
+		//TODO add caption to found table
+		foundBooks.addAll(bookRepo.findByAuthor(keywordGuest));
+		
+		foundBooks.addAll(bookRepo.findByTitle(keywordGuest));
+		
+		foundBooks.addAll(bookRepo.findByYear(year));
+		
+		model.addAttribute("booksfound", foundBooks);
+		
+		return "foundbooksguest";
+	}
+	
+	
+	
+	@GetMapping(value = "/guestBook/{id}")
+	public String guestBookView(Model model, @PathVariable(name = "id") int id) {
+		Book bookTemp = bookRepo.findById(id);
+		model.addAttribute("Book", bookTemp);
+		
+		return "bookviewguest";
+	}
+	
+	
+	//------------------------------------------------------------------------------------------------------
+	//--------------------------------------------READER----------------------------------------------------
+	//------------------------------------------------------------------------------------------------------
 	
 	
 	@GetMapping(value = "/homeReader")
@@ -83,76 +127,85 @@ public class LibraryController {
 		return "homeguest";
 	}
 	
-	
+	String keywordReader;
 	@PostMapping(value = "/homeReader")
 	public String SearchBookReader(String keyname) {
 		
-		keyword = keyname; 
+		keywordReader = keyname; 
 		System.out.println("-------------------------------" + keyname);
 		return "redirect:/foundTableReader";
 	}
 	
-	
 
 	
-	@GetMapping(value = "/foundTableGuest")
-	public String booksFoundGuest(Model model) {
-		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keyword);
-		
-		int count = 0;
-		int year = 0;
-		for (int i = 0; i < keyword.length(); i++) {
-			if(Character.isDigit(keyword.charAt(i))) {
-				count++;
-			}
-		}
-		if(count == keyword.length()) {
-			 year = Integer.parseInt(keyword);
-		}
-		//TODO add caption to found table
-		foundBooks.addAll(bookRepo.findByAuthor(keyword));
-		
-		foundBooks.addAll(bookRepo.findByTitle(keyword));
-		
-		foundBooks.addAll(bookRepo.findByYear(year));
-		
-		model.addAttribute("booksfound", foundBooks);
-		
-		return "foundbooks";
-	}
 	
-	
-	@GetMapping(value = "/foundTableGuest")
+	@GetMapping(value = "/foundTableReader")
 	public String booksFoundReader(Model model) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keyword);
+		System.out.println(keywordReader);
 		
 		int count = 0;
 		int year = 0;
-		for (int i = 0; i < keyword.length(); i++) {
-			if(Character.isDigit(keyword.charAt(i))) {
+		for (int i = 0; i < keywordReader.length(); i++) {
+			if(Character.isDigit(keywordReader.charAt(i))) {
 				count++;
 			}
 		}
-		if(count == keyword.length()) {
-			 year = Integer.parseInt(keyword);
+		if(count == keywordReader.length()) {
+			 year = Integer.parseInt(keywordReader);
 		}
 		//TODO add caption to found table
-		foundBooks.addAll(bookRepo.findByAuthor(keyword));
+		foundBooks.addAll(bookRepo.findByAuthor(keywordReader));
 		
-		foundBooks.addAll(bookRepo.findByTitle(keyword));
+		foundBooks.addAll(bookRepo.findByTitle(keywordReader));
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooks";
+		return "foundbooksreader";
 	}
 	
 	
+	//------------------------------------------------------------------------------------------------------
+	//--------------------------------------------EMPLOYEE--------------------------------------------------
+	//------------------------------------------------------------------------------------------------------
 	
 	
+	//jaunas gramatas pievienosanas skats
+	@GetMapping(value = "/addBook")
+	public String addBook(Book book){
+		return "addbook";
+	}
+			
+	@PostMapping(value = "/addBook")
+	public String addBookPost(Book book){
+			
+		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
+				
+		if(bookTemp == null){
+			Book newBook = book;
+			bookRepo.save(newBook);
+			return "redirect:/homeEmployee";
+		}
+			
+		else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
+			bookTemp.addCopy();
+			bookRepo.save(bookTemp);
+			return "redirect:/homeEmployee";
+		}
+			
+		else{
+			return "addbookfail";
+		}
+	}
+	
+	
+	//------------------------------------------------------------------------------------------------------
+	//--------------------------------------------OTHERS--------------------------------------------------
+	//------------------------------------------------------------------------------------------------------
+	
+		
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
 	public String authorise(User user){
@@ -170,7 +223,7 @@ public class LibraryController {
 			inSystem = true;
 			id = userTemp.getId_u();
 			System.out.println(id);
-			return "redirect:/Home";
+			return "redirect:/homeGuest";
 		}
 		
 		else {
@@ -178,6 +231,9 @@ public class LibraryController {
 		}
 		
 	}
+	
+	
+	
 	
 	//registracijas skats
 	@GetMapping(value = "/registration")
@@ -211,46 +267,6 @@ public class LibraryController {
 		}
 	}
 	
-	
-	//jaunas gramatas pievienosanas skats
-	@GetMapping(value = "/addBook")
-	public String addBook(Book book){
-		return "addbook";
-	}
-		
-	@PostMapping(value = "/addBook")
-	public String addBookPost(Book book){
-		
-		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
-			
-		if(bookTemp == null){
-			Book newBook = book;
-			bookRepo.save(newBook);
-			return "redirect:/homeEmployee";
-		}
-		
-		else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
-			bookTemp.addCopy();
-			bookRepo.save(bookTemp);
-			return "redirect:/homeEmployee";
-		}
-		
-		else{
-			return "addbookfail";
-		}
-	}
-
-	
-	@GetMapping(value = "/guestBook/{id}")
-	public String guestBookView(Model model, @PathVariable(name = "id") int id) {
-		Book bookTemp = bookRepo.findById(id);
-		model.addAttribute("Book", bookTemp);
-		
-		return "bookviewguest";
-	}
-	
-	
-	//kommentarnik
 	
 	
 }
