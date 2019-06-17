@@ -101,7 +101,7 @@ public class LibraryController {
 	}
 	
 	
-	
+	//For searching in search log
 	@PostMapping(value = "/foundTableGuest")
 	public String searchSearchBookGuest(String keyname) {
 		
