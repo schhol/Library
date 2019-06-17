@@ -92,7 +92,7 @@ table#t01 th {
 
 <div class="topnav">
   <div class="topnav-left">
-    <a href="http://localhost:8080/homeReader">Home</a>
+    <a th:href="@{/homeReader/{id}(id=${User.getId_u()})}">Home</a>
   </div>
   <div class="topnav-right">
     <a th:href="@{/profile/{id}(id=${User.getId_u()})}">Profile</a>

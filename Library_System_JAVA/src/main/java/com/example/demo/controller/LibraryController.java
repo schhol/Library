@@ -201,6 +201,7 @@ public class LibraryController {
 	public String readerProfile(Model model, @PathVariable(name = "id") int id) {
 		User userTemp = userRepo.findById(id);
 		System.out.println(id);
+		model.addAttribute("User", userTemp);
 		model.addAttribute("allbooks", userTemp.getReader().getCurrentTakenBookList());
 		return "readerprofile";
 	}
