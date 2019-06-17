@@ -163,7 +163,7 @@ public class LibraryController {
 		model.addAttribute("keyword", keywordReader);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooks";
+		return "foundbooksguest";
 	}
 
 	@PostMapping(value = "/foundTableGuest")
