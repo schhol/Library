@@ -110,7 +110,7 @@ public class LibraryController {
 		if(count == keyword.length()) {
 			 year = Integer.parseInt(keyword);
 		}
-		//TODO add caption to found table
+
 		foundBooks.addAll(bookRepo.findByAuthor(keyword));
 		
 		foundBooks.addAll(bookRepo.findByTitle(keyword));
@@ -123,8 +123,16 @@ public class LibraryController {
 		return "foundbooks";
 	}
 	
+	@PostMapping(value = "/foundTableGuest")
+	public String searchSearchBookGuest(String keyname) {
+		
+		keyword = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableGuest";
+	}
 	
-	@GetMapping(value = "/foundTableGuest")
+	
+	@GetMapping(value = "/foundTableReader")
 	public String booksFoundReader(Model model) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		System.out.println(keyword);
