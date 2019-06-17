@@ -88,6 +88,7 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("booksfound", foundBooks);
 		
 		return "foundbooks";
