@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "DepartmentTable")
-public class LibraryDepartment {
+public class LibraryDepartment{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

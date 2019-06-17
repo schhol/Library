@@ -52,6 +52,12 @@ public class Reader{
 		setUserRead(userRead);
 	}
 	
+	public Reader(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname, User userRead, ArrayList<Book> books) {
+		setName(name);
+		setSurname(surname);
+		setUserRead(userRead);
+		currentTakenBookList = books;
+	}
 	
 	
 	//set un get
@@ -99,6 +105,10 @@ public class Reader{
 		return currentTakenBookList;
 	}
 	
+	public void setCurrentTakenBookList(ArrayList<Book> currentTakenBookList) {
+		this.currentTakenBookList = currentTakenBookList;
+	}
+
 	public void takeABook(Book book) {
 		this.currentTakenBookList.add(book);
 	}

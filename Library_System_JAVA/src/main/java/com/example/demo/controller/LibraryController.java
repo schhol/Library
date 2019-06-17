@@ -40,8 +40,11 @@ public class LibraryController {
 	LibraryDepartmentRepo libraryDepartmentRepo;
 	//ok
 	
+
 	//TODO sasaiste starp book un reader
-	
+
+	//fixeding
+
 	
 	//------------------------------------------------------------------------------------------------------
 	//---------------------------------------------GUEST----------------------------------------------------
@@ -203,9 +206,14 @@ public class LibraryController {
 	@GetMapping(value = "/profile/{id}")
 	public String readerProfile(Model model, @PathVariable(name = "id") int id) {
 		User userTemp = userRepo.findById(id);
-		System.out.println(id);
+		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		
 		model.addAttribute("User", userTemp);
-		model.addAttribute("allbooks", userTemp.getReader().getCurrentTakenBookList());
+		for(Book b : readerTemp.getCurrentTakenBookList()) {
+			System.out.println(b.getTitle());
+		}
+		
+		model.addAttribute("allbooks", readerTemp.getCurrentTakenBookList());
 		return "readerprofile";
 	}
 	
