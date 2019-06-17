@@ -48,7 +48,7 @@ public class LibraryController {
 	
 	//Home screen
 	@GetMapping(value = "/homeGuest")
-	public String gomeGuest(Model model) {
+	public String homeGuest(Model model) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		ArrayList<Book> top5Books = new ArrayList<>();
 		
@@ -138,51 +138,6 @@ public class LibraryController {
 		return "redirect:/foundTableReader";
 	}
 	
-
-	
-<<<<<<< HEAD
-	@GetMapping(value = "/foundTableGuest")
-	public String booksFoundGuest(Model model) {
-		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keyword);
-		
-		int count = 0;
-		int year = 0;
-		for (int i = 0; i < keyword.length(); i++) {
-			if(Character.isDigit(keyword.charAt(i))) {
-				count++;
-			}
-		}
-		if(count == keyword.length()) {
-			 year = Integer.parseInt(keyword);
-		}
-
-		foundBooks.addAll(bookRepo.findByAuthor(keyword));
-		
-		foundBooks.addAll(bookRepo.findByTitle(keyword));
-		
-		foundBooks.addAll(bookRepo.findByYear(year));
-		
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("booksfound", foundBooks);
-		
-		return "foundbooks";
-	}
-=======
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
-	
-<<<<<<< HEAD
-	@PostMapping(value = "/foundTableGuest")
-	public String searchSearchBookGuest(String keyname) {
-		
-		keyword = keyname; 
-		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableGuest";
-	}
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 	@GetMapping(value = "/foundTableReader")
 	public String booksFoundReader(Model model) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
@@ -198,16 +153,25 @@ public class LibraryController {
 		if(count == keywordReader.length()) {
 			 year = Integer.parseInt(keywordReader);
 		}
-		//TODO add caption to found table
+
 		foundBooks.addAll(bookRepo.findByAuthor(keywordReader));
 		
 		foundBooks.addAll(bookRepo.findByTitle(keywordReader));
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
+		model.addAttribute("keyword", keywordReader);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooksreader";
+		return "foundbooks";
+	}
+
+	@PostMapping(value = "/foundTableGuest")
+	public String searchSearchBookGuest(String keyname) {
+		
+		keywordReader = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableGuest";
 	}
 	
 	
