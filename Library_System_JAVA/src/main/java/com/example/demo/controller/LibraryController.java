@@ -138,6 +138,9 @@ public class LibraryController {
 		return "homeguest";
 	}
 	
+	
+	
+	
 	String keywordReader;
 	@PostMapping(value = "/homeReader")
 	public String SearchBookReader(String keyname) {
@@ -146,6 +149,9 @@ public class LibraryController {
 		System.out.println("-------------------------------" + keyname);
 		return "redirect:/foundTableReader";
 	}
+	
+	
+	
 	
 	@GetMapping(value = "/foundTableReader")
 	public String booksFoundReader(Model model) {
@@ -284,7 +290,7 @@ public class LibraryController {
 			return  "registerfail";
 		}
 	}
-	
+	//doggo poggo
 	
 	
 }
