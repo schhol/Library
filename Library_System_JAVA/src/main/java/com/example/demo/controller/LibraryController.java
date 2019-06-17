@@ -136,7 +136,7 @@ public class LibraryController {
 		}
 		
 		model.addAttribute("allbooks", top5Books);
-		return "homeguest";
+		return "homereader";
 	}
 	
 	
@@ -182,14 +182,6 @@ public class LibraryController {
 		return "foundbooksguest";
 	}
 
-	@PostMapping(value = "/foundTableReader")
-	public String searchSearchBookReader(String keyname) {
-		
-		keywordReader = keyname; 
-		System.out.println("-------------------------------" + keyname);
-
-		return "foundbooksreader";
-	}
 	
 	
 	@PostMapping(value = "/foundTableReader")
@@ -204,6 +196,21 @@ public class LibraryController {
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
+	
+	
+	@GetMapping(value = "/homeEmployee")
+	public String homeEmployee(Model model) {
+		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
+		ArrayList<Book> top5Books = new ArrayList<>();
+		
+		for (int i = 0; i < 5; i++) {
+			top5Books.add(allBooksFromDB.get(i));
+		}
+		
+		model.addAttribute("allbooks", top5Books);
+		return "homeemployee";
+	}
+	
 	
 	
 	//jaunas gramatas pievienosanas skats
@@ -249,12 +256,10 @@ public class LibraryController {
 	//post-autorizacija, iegust lietotaja ievadito info
 	@PostMapping(value = "/authorise")
 	public String authorisePost(User user){
-		boolean inSystem = false;
 		int id = -1;
 		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		
 		if(userTemp != null) {
-			inSystem = true;
 			id = userTemp.getId_u();
 			System.out.println(id);
 			return "redirect:/homeGuest";
@@ -300,7 +305,7 @@ public class LibraryController {
 			return  "registerfail";
 		}
 	}
-	//doggo poggo
+	
 	
 	
 }
