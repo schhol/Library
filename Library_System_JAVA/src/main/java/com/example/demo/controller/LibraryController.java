@@ -136,7 +136,7 @@ public class LibraryController {
 		}
 		
 		model.addAttribute("allbooks", top5Books);
-		return "homeguest";
+		return "homereader";
 	}
 	
 	
@@ -196,6 +196,21 @@ public class LibraryController {
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
+	
+	
+	@GetMapping(value = "/homeEmployee")
+	public String homeEmployee(Model model) {
+		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
+		ArrayList<Book> top5Books = new ArrayList<>();
+		
+		for (int i = 0; i < 5; i++) {
+			top5Books.add(allBooksFromDB.get(i));
+		}
+		
+		model.addAttribute("allbooks", top5Books);
+		return "homeemployee";
+	}
+	
 	
 	
 	//jaunas gramatas pievienosanas skats
