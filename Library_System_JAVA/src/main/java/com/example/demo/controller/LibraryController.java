@@ -39,10 +39,14 @@ public class LibraryController {
 	@Autowired
 	LibraryDepartmentRepo libraryDepartmentRepo;
 	
+	//------------------------------------------------------------------------------------------------------
+	//---------------------------------------GUEST----------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------
+	
 	
 	//Home screen
-	@GetMapping(value = "/home")
-	public String Homescreen(Model model) {
+	@GetMapping(value = "/homeGuest")
+	public String gomeGuest(Model model) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		ArrayList<Book> top5Books = new ArrayList<>();
 		
@@ -50,24 +54,49 @@ public class LibraryController {
 			top5Books.add(allBooksFromDB.get(i));
 		}
 		
-		
-		//koment
 		model.addAttribute("allbooks", top5Books);
 		return "homeguest";
 	}
 	
 	String keyword;
-	@PostMapping(value = "/home")
-	public String SearchBook(String keyname) {
+	@PostMapping(value = "/homeGuest")
+	public String SearchBookGuest(String keyname) {
 		
 		keyword = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundtable";
+		return "redirect:/foundTableGuest";
 	}
 	
-	//fixing
-	@GetMapping(value = "/foundtable")
-	public String booksFound(Model model) {
+	
+	
+	
+	@GetMapping(value = "/homeReader")
+	public String homeReader(Model model) {
+		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
+		ArrayList<Book> top5Books = new ArrayList<>();
+		
+		for (int i = 0; i < 5; i++) {
+			top5Books.add(allBooksFromDB.get(i));
+		}
+		
+		model.addAttribute("allbooks", top5Books);
+		return "homeguest";
+	}
+	
+	
+	@PostMapping(value = "/homeReader")
+	public String SearchBookReader(String keyname) {
+		
+		keyword = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableReader";
+	}
+	
+	
+
+	
+	@GetMapping(value = "/foundTableGuest")
+	public String booksFoundGuest(Model model) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		System.out.println(keyword);
 		
@@ -93,6 +122,37 @@ public class LibraryController {
 		
 		return "foundbooks";
 	}
+	
+	
+	@GetMapping(value = "/foundTableGuest")
+	public String booksFoundReader(Model model) {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
+		System.out.println(keyword);
+		
+		int count = 0;
+		int year = 0;
+		for (int i = 0; i < keyword.length(); i++) {
+			if(Character.isDigit(keyword.charAt(i))) {
+				count++;
+			}
+		}
+		if(count == keyword.length()) {
+			 year = Integer.parseInt(keyword);
+		}
+		//TODO add caption to found table
+		foundBooks.addAll(bookRepo.findByAuthor(keyword));
+		
+		foundBooks.addAll(bookRepo.findByTitle(keyword));
+		
+		foundBooks.addAll(bookRepo.findByYear(year));
+		
+		model.addAttribute("booksfound", foundBooks);
+		
+		return "foundbooks";
+	}
+	
+	
+	
 	
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
