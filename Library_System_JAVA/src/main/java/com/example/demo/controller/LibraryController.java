@@ -126,14 +126,17 @@ public class LibraryController {
 	//------------------------------------------------------------------------------------------------------
 	
 	
-	@GetMapping(value = "/homeReader")
-	public String homeReader(Model model) {
+	@GetMapping(value = "/homeReader/{id}")
+	public String homeReader(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		ArrayList<Book> top5Books = new ArrayList<>();
 		
 		for (int i = 0; i < 5; i++) {
 			top5Books.add(allBooksFromDB.get(i));
 		}
+		
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
 		
 		model.addAttribute("allbooks", top5Books);
 		return "homereader";
@@ -143,7 +146,7 @@ public class LibraryController {
 	
 	
 	String keywordReader;
-	@PostMapping(value = "/homeReader")
+	@PostMapping(value = "/homeReader/{id}")
 	public String SearchBookReader(String keyname) {
 		
 		keywordReader = keyname; 
@@ -179,7 +182,7 @@ public class LibraryController {
 		model.addAttribute("keyword", keywordReader);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooksguest";
+		return "foundbooksreader";
 	}
 
 	
@@ -193,22 +196,79 @@ public class LibraryController {
 	}
 	
 	
+	
+	@GetMapping(value = "/profile/{id}")
+	public String readerProfile(Model model, @PathVariable(name = "id") int id) {
+		User userTemp = userRepo.findById(id);
+		System.out.println(id);
+		model.addAttribute("allbooks", userTemp.getReader().getCurrentTakenBookList());
+		return "readerprofile";
+	}
+	
+	
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
 	
 	
-	@GetMapping(value = "/homeEmployee")
-	public String homeEmployee(Model model) {
+	@GetMapping(value = "/homeEmployee/{id}")
+	public String homeEmployee(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
-		ArrayList<Book> top5Books = new ArrayList<>();
 		
-		for (int i = 0; i < 5; i++) {
-			top5Books.add(allBooksFromDB.get(i));
-		}
 		
-		model.addAttribute("allbooks", top5Books);
+		model.addAttribute("allbooks", allBooksFromDB);
 		return "homeemployee";
+	}
+	
+	
+	
+	String keywordEmployee;
+	@PostMapping(value = "/homeEmployee/{id}")
+	public String SearchBookEmployee(String keyname, @PathVariable(name = "id") int id) {
+		
+		keywordEmployee = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableEmployee";
+	}
+	
+	
+	
+	@GetMapping(value = "/foundTableEmployee")
+	public String booksFoundEmployee(Model model) {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
+		System.out.println(keywordEmployee);
+		
+		int count = 0;
+		int year = 0;
+		for (int i = 0; i < keywordEmployee.length(); i++) {
+			if(Character.isDigit(keywordEmployee.charAt(i))) {
+				count++;
+			}
+		}
+		if(count == keywordEmployee.length()) {
+			 year = Integer.parseInt(keywordEmployee);
+		}
+
+		foundBooks.addAll(bookRepo.findByAuthor(keywordEmployee));
+		
+		foundBooks.addAll(bookRepo.findByTitle(keywordEmployee));
+		
+		foundBooks.addAll(bookRepo.findByYear(year));
+		
+		model.addAttribute("keyword", keywordEmployee);
+		model.addAttribute("booksfound", foundBooks);
+		
+		return "foundbooksemployee";
+	}
+
+	
+	//Var dzest komentaru
+	@PostMapping(value = "/foundTableEmployee")
+	public String searchSearchBookEmployee(String keyname) {
+		
+		keywordEmployee = keyname; 
+		System.out.println("-------------------------------" + keyname);
+		return "redirect:/foundTableEmployee";
 	}
 	
 	
@@ -246,23 +306,29 @@ public class LibraryController {
 	//--------------------------------------------OTHERS--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
 	
-		
+	
 	//autorizacijas skats
 	@GetMapping(value = "/authorise")
 	public String authorise(User user){
 		return "authorise";
 	}
-		
+	
+	
+	int id = -1;
 	//post-autorizacija, iegust lietotaja ievadito info
 	@PostMapping(value = "/authorise")
 	public String authorisePost(User user){
-		int id = -1;
 		User userTemp = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		
 		if(userTemp != null) {
 			id = userTemp.getId_u();
-			System.out.println(id);
-			return "redirect:/homeGuest";
+
+			if(userTemp.getReader() != null && userTemp.getEmployee() == null) {
+				return "redirect:/homeReader/" + id;
+			}
+			else {
+				return "redirect:/homeEmployee/" + id;
+			}
 		}
 		
 		else {
@@ -270,7 +336,6 @@ public class LibraryController {
 		}
 		
 	}
-	
 	
 	
 	
