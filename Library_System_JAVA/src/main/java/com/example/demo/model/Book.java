@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "BookTable")
-public class Book {
+public class Book{
 
 	//Mainigie
 	
@@ -92,6 +93,18 @@ public class Book {
 		timesTaken = 0;
 	}
 	
+	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation) {
+		setIsbn(isbn);
+		setYear(year);
+		setTitle(title);
+		setAuthor(author);
+		setRating(rating);
+		setCondition(condition);
+		setRarity(rarity);
+		setAnotation(anotation);
+		coppies++;
+		timesTaken = 0;
+	}
 	
 	
 	
