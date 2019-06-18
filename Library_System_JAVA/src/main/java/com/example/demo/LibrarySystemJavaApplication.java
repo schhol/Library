@@ -87,13 +87,9 @@ public class LibrarySystemJavaApplication {
 			bookRepo.save(b5);
 			bookRepo.save(b6);
 			
-<<<<<<< HEAD
-=======
 			
 			Reader r1 = new  Reader("Janis", "Kalnins", u1);
 			readerRepo.save(r1);
-
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 			
 		}
 	}
