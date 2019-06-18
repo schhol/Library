@@ -140,7 +140,7 @@ table#t01 th {
   <th:block th:each="book, iterStat : ${allbooks} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
-  	<td> <a th:href="@{/readerBook/{id}(id=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>
+  	<td> <a th:href="@{'/readerBook/' + ${User.getId_u()} + '/' + ${book.getId_b()} }"><th:block th:text="${book.getTitle()}"></a>
   	<td th:text="${book.getAuthor()}"/>
   	<td th:text="${book.getTimesTaken()}"/>
   	<td th:text="${book.getYear()}"/>
