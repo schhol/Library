@@ -92,11 +92,6 @@ public class LibrarySystemJavaApplication {
 			bookRepo.save(b5);
 			bookRepo.save(b6);
 			
-<<<<<<< HEAD
-
-
-=======
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 			
 		}
 	}

@@ -153,20 +153,23 @@ public class LibraryController {
 	
 	String keywordReader;
 	@PostMapping(value = "/homeReader/{id}")
-	public String SearchBookReader(String keyname) {
+	public String SearchBookReader(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordReader = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableReader";
+		return "redirect:/foundTableReader/"+id;
 	}
 	
 	
 	
 	
-	@GetMapping(value = "/foundTableReader")
-	public String booksFoundReader(Model model) {
+	@GetMapping(value = "/foundTableReader/{id}")
+	public String booksFoundReader(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		System.out.println(keywordReader);
+		
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
 		
 		int count = 0;
 		int year = 0;
@@ -185,7 +188,7 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
-		model.addAttribute("keyword", keywordReader);
+		model.addAttribute("keywordReader", keywordReader);
 		model.addAttribute("booksfound", foundBooks);
 		
 		return "foundbooksreader";
@@ -193,12 +196,12 @@ public class LibraryController {
 
 	
 	//Var dzest komentaru
-	@PostMapping(value = "/foundTableReader")
-	public String searchSearchBookReader(String keyname) {
+	@PostMapping(value = "/foundTableReader/{id}")
+	public String searchSearchBookReader(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordReader = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableReader";
+		return "redirect:/foundTableReader/"+id;
 	}
 	
 	
@@ -209,14 +212,18 @@ public class LibraryController {
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		
 		model.addAttribute("User", userTemp);
-		for(Book b : readerTemp.getCurrentTakenBookList()) {
-			System.out.println(b.getTitle());
-		}
 		
 		model.addAttribute("allbooks", readerTemp.getCurrentTakenBookList());
 		return "readerprofile";
 	}
 	
+	@GetMapping(value = "/readerBook/{id}")
+	public String readerBookView(Model model, @PathVariable(name = "id") int id) {
+		Book bookTemp = bookRepo.findById(id);
+		model.addAttribute("Book", bookTemp);
+		
+		return "bookviewreader";
+	}
 	
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------

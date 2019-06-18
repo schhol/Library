@@ -106,11 +106,16 @@ table#t01 th {
 <div align = "center">
   <font size="7">Library System</font>
 </div>
+<br>
+<br>
 
 <!-- Search box -->
 
-<div align = "center"><input type="text" size="80"  placeholder ="Search..."/></div><br>
-
+<form action="#" th:action="@{/homeReader/{id}(id=${User.getId_u()})}" method = "post">
+<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
+<input type="submit" value="Submit"></div><br>
+</form>
+<br>
 
 <!-- Left side list -->
 
@@ -135,7 +140,7 @@ table#t01 th {
   <th:block th:each="book, iterStat : ${allbooks} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
-  	<td> <a th:href="@{/guestBook/{id}(id=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>
+  	<td> <a th:href="@{/readerBook/{id}(id=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>
   	<td th:text="${book.getAuthor()}"/>
   	<td th:text="${book.getTimesTaken()}"/>
   	<td th:text="${book.getYear()}"/>
