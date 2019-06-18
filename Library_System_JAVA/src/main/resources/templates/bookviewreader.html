@@ -78,6 +78,51 @@ table#t01 th {
 }
 </style>
 
+<!-- textarea -->
+<style>
+textarea {
+   resize: none;
+   width: 800px;
+   height: 100px;
+   font-family:"Arial", Helvetica, sans-serif;  
+   font-size: 14px;
+}
+</style>
+
+<!-- button -->
+<style>
+div.absolute {
+  position: absolute;
+  width: 50%;
+  bottom: 100px;
+  right: 25%
+
+}
+</style>
+
+<style>
+.button {
+  background-color: #CCCFD9;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+
+<style>
+.button1 {width: 100%;}
+</style>
+
+<style>
+.button1:hover {
+  background-color: #474B58;
+  color: white;
+}
+</style>
 </head>
 
 
@@ -104,37 +149,41 @@ table#t01 th {
 <!-- Header-->
 
 <div align = "center">
-  <font size="5"><p th:text="${Book.getTitle()}"></p></font>
+  <font size="7">Library System</font>
 </div>
+<br>
+<br>
+
+<div align = "center">
+  <font size="3"><h1 th:text="${Book.getTitle()}"></h1></font>
+</div>
+<br>
 
 
 <!-- Left side list -->
 
-<div class = "sidebyside">
-<div class = "center"><h3>Book info:</h3></div>
-<p>Author: </p><p th:text="${Book.getAuthor()}"></p>
-<p>Year: </p><p th:text="${Book.getYear()}"></p>
-<p>Rating: </p><p th:text="${Book.getRating()}"></p>
-<p>Condition: </p><p th:text="${Book.getCondition()}"></p>
-<p>Rarity: </p><p th:text="${Book.getRarity()}"></p>
-<p>ISBN: </p><p th:text="${Book.getIsbn()}"></p>
-</div>
 
-
-<!-- Right side -->
-
-<div class = "sidebyside">
-<div class = "left"></div>
-<div class="container">
-  <button type="button" class="btn btn-info">Borrow book</button>
-</div>
-</div>
 
 
 <!-- Annotation -->
+<div class = "sidebyside">
+<div class = "textarea"></div>
+<p><b>Anotation:</b></p>
+<textarea readonly id="anotation" name="anotation"><th:block th:text = "${Book.getAnotation()}"></textarea>
+</div>
 
-<p th:text = "${Book.getAnotation()}"></p>
+<div class = "sidebyside" align = "center">
+<p><b>Author: </b><th:block th:text="${Book.getAuthor()}"></p>
+<p><b>Year: </b><th:block th:text="${Book.getYear()}"></p>
+<p><b>Rating: </b><th:block th:text="${Book.getRating()} + ' / 5'"></p>
+<p><b>Condition: </b><th:block th:text="${Book.getCondition()}"></p>
+<p><b>Rarity: </b><th:block th:text="${Book.getRarity()}"></p>
+<p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
+</div>
 
+<div class="absolute">
+	<a th:href="@{'/readerBookReturn/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1">Borrow</a>
+</div>
 
   
 

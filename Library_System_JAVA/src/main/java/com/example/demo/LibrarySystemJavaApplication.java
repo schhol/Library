@@ -92,6 +92,7 @@ public class LibrarySystemJavaApplication {
 			
 
 			Reader r1 = new  Reader("Janis", "Kalnins", u1);
+			r1.takeABook(b1);
 			readerRepo.save(r1);
 			
 		}

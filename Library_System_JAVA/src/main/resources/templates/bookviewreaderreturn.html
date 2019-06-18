@@ -78,6 +78,51 @@ table#t01 th {
 }
 </style>
 
+<!-- textarea -->
+<style>
+textarea {
+   resize: none;
+   width: 800px;
+   height: 100px;
+   font-family:"Arial", Helvetica, sans-serif;  
+   font-size: 14px;
+}
+</style>
+
+<!-- button -->
+<style>
+div.absolute {
+  position: absolute;
+  width: 50%;
+  bottom: 100px;
+  right: 25%
+
+}
+</style>
+
+<style>
+.button {
+  background-color: #CCCFD9;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+
+<style>
+.button1 {width: 100%;}
+</style>
+
+<style>
+.button1:hover {
+  background-color: #474B58;
+  color: white;
+}
+</style>
 </head>
 
 
@@ -109,41 +154,37 @@ table#t01 th {
 <br>
 <br>
 
-<!-- Search box -->
-
-<form action="#" th:action="@{//profile/{id}}" method = "post">
-<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
-<input type="submit" value="Submit"></div><br>
-</form>
+<div align = "center">
+  <font size="3"><h1 th:text="${Book.getTitle()}"></h1></font>
+</div>
 <br>
+
 
 <!-- Left side list -->
 
+
+
+
+<!-- Annotation -->
 <div class = "sidebyside">
-<div class = "center"><h3>User info:</h3></div>
-<div class = "link"><p>Name</p></div>
-<div class = "link"><p>Surname</p></div>
+<div class = "textarea"></div>
+<p><b>Anotation:</b></p>
+<textarea readonly id="anotation" name="anotation"><th:block th:text = "${Book.getAnotation()}"></textarea>
 </div>
 
+<div class = "sidebyside" align = "center">
+<p><b>Author: </b><th:block th:text="${Book.getAuthor()}"></p>
+<p><b>Year: </b><th:block th:text="${Book.getYear()}"></p>
+<p><b>Rating: </b><th:block th:text="${Book.getRating()} + ' / 5'"></p>
+<p><b>Condition: </b><th:block th:text="${Book.getCondition()}"></p>
+<p><b>Rarity: </b><th:block th:text="${Book.getRarity()}"></p>
+<p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
+</div>
 
-<!-- The table of books-->
+<div class="absolute">
+	<a th:href="@{'/readerBook/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1">Return</a>
+</div>
 
-<table id="t01" align="center" style = "width:60%">
-	<caption align = "left"><font size = "5">All borrowed books:</font></caption>
-  <tr>
-    <th>Number</th>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Borrows</th>
-    <th>Year</th>
-  </tr>
-  <th:block th:each="book, iterStat : ${allbooks} ">
-  <tr>
-  	<td th:text="${iterStat.count}"/>
-  	<td> <a th:href="@{'/readerBook/' + ${User.getId_u()} + '/' + ${book.getId_b()} }"><th:block th:text="${book.getTitle()}"></a>
-  	<td th:text="${book.getAuthor()}"/>
-  	<td th:text="${book.getTimesTaken()}"/>
-  	<td th:text="${book.getYear()}"/>
-  </tr>
-</table>
+  
 
+</body>
