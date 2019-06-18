@@ -115,13 +115,14 @@ table#t01 th {
     <th>Borrows</th>
     <th>Year</th>
   </tr>
-  <th:block th:each="book, iterStat : ${booksfound} ">
+  <th:block th:each="book, iterStat : ${booksfound} " th:object = ${User}>
   <tr>
   	<td th:text="${iterStat.count}"/>
-  	<td th:text="${book.getTitle()}"/>
+  	<td> <a th:href="@{/readerBook/{id_u}(id_u=${User.getId_u()})/{id_b}(id_b=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>
   	<td th:text="${book.getAuthor()}"/>
   	<td th:text="${book.getTimesTaken()}"/>
   	<td th:text="${book.getYear()}"/>
+  </tr>
   </tr>
 </table>
 
