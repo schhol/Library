@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -66,11 +64,8 @@ public class LibrarySystemJavaApplication {
 			Employee emp2 = new Employee("Ivo", "Berzins", ld1, u3);
 			employeeRepo.save(emp1);
 			employeeRepo.save(emp2);
-	
-			Reader r1 = new  Reader("Janis", "Kalnins", u1);
-			readerRepo.save(r1);
-
 					
+			
 			Book b1 = new Book("1111111111", 2010 ,"book", "Dude", 4.9, "Good", 3, "Good book about dudes", ld1);
 			Book b2 = new Book("1112211111", 2010 ,"gramata", "Picasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
 			Book b3 = new Book("1112211111", 2011 ,"sdfs", "Picddasso", 4.5, "VeryGood", 4, "Good book about art", ld1);
@@ -92,6 +87,13 @@ public class LibrarySystemJavaApplication {
 			bookRepo.save(b5);
 			bookRepo.save(b6);
 			
+<<<<<<< HEAD
+=======
+			
+			Reader r1 = new  Reader("Janis", "Kalnins", u1);
+			readerRepo.save(r1);
+
+>>>>>>> branch 'master' of https://github.com/schhol/Library.git
 			
 		}
 	}

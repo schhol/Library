@@ -38,12 +38,9 @@ public class LibraryController {
 	
 	@Autowired
 	LibraryDepartmentRepo libraryDepartmentRepo;
-	//ok
 	
 
 	//TODO sasaiste starp book un reader
-
-	//fixeding
 
 	
 	//------------------------------------------------------------------------------------------------------
@@ -195,7 +192,7 @@ public class LibraryController {
 	}
 
 	
-	//Var dzest komentaru
+	
 	@PostMapping(value = "/foundTableReader/{id}")
 	public String searchSearchBookReader(String keyname, @PathVariable(name = "id") int id) {
 		
@@ -390,6 +387,6 @@ public class LibraryController {
 		}
 	}
 	
-	
+	//forsais
 	
 }
