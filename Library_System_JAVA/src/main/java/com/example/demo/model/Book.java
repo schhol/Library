@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -42,6 +43,10 @@ public class Book{
 	@Size(min = 3, max = 15)
 	@Column(name = "Title")
 	private String title;
+	
+	@Lob
+	@Column(name = "Image")
+	private byte[] image;
 	
 	@NotNull
 	@Size(min = 4, max =26)
@@ -176,6 +181,16 @@ public class Book{
 		else {
 			this.title = "The book";
 		}
+	}
+
+
+	public byte[] getImage() {
+		return image;
+	}
+
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 

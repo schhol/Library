@@ -227,6 +227,40 @@ public class LibraryController {
 		return "bookviewreader";
 	}
 	
+	@PostMapping(value = "readerBook/{id_u}/{id_b}")
+	public String bookSavingToReader(@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
+		
+		Book bookTemp = bookRepo.findById(id_b);
+		User userTemp = userRepo.findById(id_u);
+		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		//TODO check if reader has the book
+		if(readerTemp.) {
+			
+		}
+		else if(bookTemp.takeBook()) {
+			readerTemp.takeABook(bookTemp);
+			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+		}
+		else {
+			return "bookNotAvailable";
+		}
+		
+		
+		
+	}
+	
+	@GetMapping(value = "readerBookReturn/{id_u}/{id_b}")
+	public String readerReturnBookView(Model model,@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
+		
+		Book bookTemp = bookRepo.findById(id_b);
+		User userTemp = userRepo.findById(id_u);
+		System.out.println("----------------------------------------" + userTemp.getId_u());
+		
+		model.addAttribute("User", userTemp);
+		model.addAttribute("Book", bookTemp);
+		
+		return"bookviewreaderreturn";
+	}
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
