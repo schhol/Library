@@ -87,7 +87,7 @@ public class LibrarySystemJavaApplication {
 			bookRepo.save(b5);
 			bookRepo.save(b6);
 			
-			
+
 			Reader r1 = new  Reader("Janis", "Kalnins", u1);
 			readerRepo.save(r1);
 			

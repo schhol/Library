@@ -214,7 +214,7 @@ public class LibraryController {
 		return "readerprofile";
 	}
 	
-	//Nesrada
+
 	@GetMapping(value = "/readerBook/{id_u}/{id_b}")
 	public String readerBookView(Model model, @PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
 		Book bookTemp = bookRepo.findById(id_b);
@@ -333,7 +333,7 @@ public class LibraryController {
 	public String authorise(User user){
 		return "authorise";
 	}
-	
+
 	
 	int id = -1;
 	//post-autorizacija, iegust lietotaja ievadito info
