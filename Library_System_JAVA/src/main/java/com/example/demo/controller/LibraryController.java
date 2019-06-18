@@ -214,20 +214,13 @@ public class LibraryController {
 		return "readerprofile";
 	}
 	
-<<<<<<< HEAD
-	@GetMapping(value = "/readerBook/{id}")
-	public String readerBookView(Model model, @PathVariable(name = "id") int id) {
-		Book bookTemp = bookRepo.findById(id);
-		
-=======
-	//Nesrada
+
 	@GetMapping(value = "/readerBook/{id_u}/{id_b}")
 	public String readerBookView(Model model, @PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 		
 		model.addAttribute("User", userTemp);
->>>>>>> branch 'master' of https://github.com/schhol/Library.git
 		model.addAttribute("Book", bookTemp);
 		
 		return "bookviewreader";
