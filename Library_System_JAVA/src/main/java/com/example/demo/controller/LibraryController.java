@@ -217,6 +217,7 @@ public class LibraryController {
 	@GetMapping(value = "/readerBook/{id}")
 	public String readerBookView(Model model, @PathVariable(name = "id") int id) {
 		Book bookTemp = bookRepo.findById(id);
+		
 		model.addAttribute("Book", bookTemp);
 		
 		return "bookviewreader";
@@ -328,7 +329,7 @@ public class LibraryController {
 	public String authorise(User user){
 		return "authorise";
 	}
-	
+
 	
 	int id = -1;
 	//post-autorizacija, iegust lietotaja ievadito info
