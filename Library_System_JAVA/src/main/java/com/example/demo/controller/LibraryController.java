@@ -234,10 +234,10 @@ public class LibraryController {
 		User userTemp = userRepo.findById(id_u);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		//TODO check if reader has the book
-		if(readerTemp.) {
+		//if(readerTemp.) {
 			
-		}
-		else if(bookTemp.takeBook()) {
+		
+		 if(bookTemp.takeBook()) {
 			readerTemp.takeABook(bookTemp);
 			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 		}
