@@ -40,7 +40,7 @@ public class LibraryController {
 	LibraryDepartmentRepo libraryDepartmentRepo;
 	
 
-	//TODO sasaiste starp book un reader
+	//TODO pabeigt department meklesanas
 
 	
 	//------------------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ public class LibraryController {
 				count++;
 			}
 		}
-		if(count == keywordGuest.length()) {
+		if(count == keywordGuest.length() && count >=1 && count <=4) {
 			 year = Integer.parseInt(keywordGuest);
 		}
 		
@@ -97,10 +97,16 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
-		model.addAttribute("keyword", keywordGuest);
+		model.addAttribute("keywordGuest", keywordGuest);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooksguest";
+		if(foundBooks.isEmpty() || keywordGuest == ""){
+			return "guestsearchfail";
+		}
+		else {
+			return "foundbooksguest";
+		}
+		
 	}
 	
 	
@@ -122,6 +128,17 @@ public class LibraryController {
 		
 		return "bookviewguest";
 	}
+	
+	
+	@GetMapping(value = "/departmentScienceGuest")
+	public String departmentScienceGuest(Model model){
+		ArrayList<Book> scienceBooks = bookRepo.findByDepartmentTitle("science");
+		
+		model.addAttribute("ScienceBooks", scienceBooks);
+		
+		return "departmentscienceguest";
+	}
+	
 	
 	
 	//------------------------------------------------------------------------------------------------------
@@ -165,9 +182,6 @@ public class LibraryController {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		System.out.println(keywordReader);
 		
-		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
-		
 		int count = 0;
 		int year = 0;
 		for (int i = 0; i < keywordReader.length(); i++) {
@@ -175,7 +189,7 @@ public class LibraryController {
 				count++;
 			}
 		}
-		if(count == keywordReader.length()) {
+		if(count == keywordReader.length() && count >=1 && count <= 4) {
 			 year = Integer.parseInt(keywordReader);
 		}
 
@@ -185,10 +199,19 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
+		
 		model.addAttribute("keywordReader", keywordReader);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooksreader";
+		if(foundBooks.isEmpty() || keywordReader == "") {
+			return "readersearchfail";
+		}
+		else {
+			return "foundbooksreader";
+		}
+		
 	}
 
 	
@@ -236,6 +259,8 @@ public class LibraryController {
 	public String homeEmployee(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
 		
 		model.addAttribute("allbooks", allBooksFromDB);
 		return "homeemployee";
@@ -249,13 +274,13 @@ public class LibraryController {
 		
 		keywordEmployee = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableEmployee";
+		return "redirect:/foundTableEmployee/" + id;
 	}
 	
 	
 	
-	@GetMapping(value = "/foundTableEmployee")
-	public String booksFoundEmployee(Model model) {
+	@GetMapping(value = "/foundTableEmployee/{id}")
+	public String booksFoundEmployee(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		System.out.println(keywordEmployee);
 		
@@ -266,7 +291,7 @@ public class LibraryController {
 				count++;
 			}
 		}
-		if(count == keywordEmployee.length()) {
+		if(count == keywordEmployee.length() && count >=1 && count <= 4) {
 			 year = Integer.parseInt(keywordEmployee);
 		}
 
@@ -276,45 +301,70 @@ public class LibraryController {
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
-		model.addAttribute("keyword", keywordEmployee);
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
+		
+		model.addAttribute("keywordEmployee", keywordEmployee);
 		model.addAttribute("booksfound", foundBooks);
 		
-		return "foundbooksemployee";
+		if(foundBooks.isEmpty() || keywordEmployee == "") {
+			return "employeesearchfail";
+		}
+		else {
+			return "foundbooksemployee";
+		}
+		
 	}
 
 	
 	//Var dzest komentaru
-	@PostMapping(value = "/foundTableEmployee")
-	public String searchSearchBookEmployee(String keyname) {
+	@PostMapping(value = "/foundTableEmployee/{id}")
+	public String searchSearchBookEmployee(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordEmployee = keyname; 
 		System.out.println("-------------------------------" + keyname);
-		return "redirect:/foundTableEmployee";
+		return "redirect:/foundTableEmployee" + id;
+	}
+	
+	
+	
+	@GetMapping(value = "/employeeBook/{id_u}/{id_b}")
+	public String employeeBookView(Model model, @PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
+		Book bookTemp = bookRepo.findById(id_b);
+		User userTemp = userRepo.findById(id_u);
+	
+		
+		model.addAttribute("User", userTemp);
+		model.addAttribute("Book", bookTemp);
+		
+		return "bookviewemployee";
 	}
 	
 	
 	
 	//jaunas gramatas pievienosanas skats
-	@GetMapping(value = "/addBook")
-	public String addBook(Book book){
+	@GetMapping(value = "/addBook/{id}")
+	public String addBook(Model model, Book book, @PathVariable(name = "id") int id){
+		User userTemp = userRepo.findById(id);
+		model.addAttribute("User", userTemp);
 		return "addbook";
 	}
 			
-	@PostMapping(value = "/addBook")
-	public String addBookPost(Book book){
+	@PostMapping(value = "/addBook/{id}")
+	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id){
 			
 		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
 				
 		if(bookTemp == null){
 			Book newBook = book;
 			bookRepo.save(newBook);
-			return "redirect:/homeEmployee";
+			return "redirect:/homeEmployee/" + id;
 		}
 			
 		else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
 			bookTemp.addCopy();
 			bookRepo.save(bookTemp);
-			return "redirect:/homeEmployee";
+			return "redirect:/homeEmployee/" + id;
 		}
 			
 		else{
@@ -391,6 +441,8 @@ public class LibraryController {
 			return  "registerfail";
 		}
 	}
+
+	
 	
 	//forsais
 	//skaisti

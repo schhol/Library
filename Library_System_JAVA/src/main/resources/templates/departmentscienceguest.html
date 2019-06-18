@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="www.thymeleaf.org">
-
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -37,7 +37,31 @@ body {
   float: right;
 }
 </style>
+</head>
+<body>
 
+<div class="topnav">
+  <div class="topnav-left">
+    <a href="http://localhost:8080/homeGuest">Home</a>
+  </div>
+  <div class="topnav-right">
+    <a href="http://localhost:8080/registration">Register</a>
+    <a href="http://localhost:8080/authorise">Authorise</a>
+  </div>
+</div>
+<br>
+
+<div align = "center">
+  <font size="7">Library System</font>
+</div>
+<br>
+<br>
+
+<form action="#" th:action="@{/homeGuest}" method = "post">
+<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
+<input type="submit" value="Submit"></div><br>
+</form>
+<br>
 <style>
 .sidebyside {
 	float: left;
@@ -63,6 +87,12 @@ body {
   transform: translate(-50%, 100%);
 }
 </style>
+<div class = "sidebyside">
+<div class = "center"><h3>Search in departments:</h3></div>
+<div class = "link"><a href="http://localhost:8080/departmentScienceGuest">Science</a></div>
+<div class = "link"><a href="http://localhost:8080/departmentSportGuest">Sport</a></div><br>
+<div class = "link"><a href="http://localhost:8080/departmentArtGuest">Art</a></div><br>
+</div>
 
 <style>
 table, th, td {
@@ -78,58 +108,9 @@ table#t01 th {
 }
 </style>
 
-</head>
-
-
-
-<!-- The body starts here! -->
-
-
-
-<body>
-
-<!-- The top navigation -->
-
-<div class="topnav">
-  <div class="topnav-left">
-    <a th:href="@{/homeReader/{id}(id=${User.getId_u()})}">Home</a>
-  </div>
-  <div class="topnav-right">
-    <a th:href="@{/profile/{id}(id=${User.getId_u()})}">Profile</a>
-    <a href="http://localhost:8080/homeGuest">Log out</a>
-  </div>
-</div>
-<br>
-
-<!-- Header-->
-
-<div align = "center">
-  <font size="7">Library System</font>
-</div>
-<br>
-<br>
-
-<!-- Search box -->
-
-<form action="#" th:action="@{/homeReader/{id}(id=${User.getId_u()})}" method = "post">
-<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
-<input type="submit" value="Submit"></div><br>
-</form>
-<br>
-
-<!-- Left side list -->
-
-<div class = "sidebyside">
-<div class = "center"><h3>Search in departments:</h3></div>
-<div class = "link"><p>Science</p></div>
-<div class = "link"><p>Sport</p></div>
-</div>
-
-
-<!-- The table of books-->
 
 <table id="t01" align="left" style = "width:60%">
-	<caption align = "left"><font size = "5">Popular books this month:</font></caption>
+	<caption align = "left"><font size = "5">Books in department: "Science"</font></caption>
   <tr>
     <th>Number</th>
     <th>Title</th>
@@ -137,17 +118,15 @@ table#t01 th {
     <th>Borrows</th>
     <th>Year</th>
   </tr>
-  <th:block th:each="book, iterStat : ${allbooks} ">
+  <th:block th:each="book, iterStat : ${ScienceBooks} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
-  	<td> <a th:href="@{'/readerBook/' + ${User.getId_u()} + '/' + ${book.getId_b()} }"><th:block th:text="${book.getTitle()}"></a>
+  	<td> <a th:href="@{/guestBook/{id}(id=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>
   	<td th:text="${book.getAuthor()}"/>
   	<td th:text="${book.getTimesTaken()}"/>
   	<td th:text="${book.getYear()}"/>
   </tr>
 </table>
-
-<!-- Right side list -->
 
 <div class = "sidebyside">
 <div class = "center"><h3>Contacts</h3></div>
@@ -158,3 +137,5 @@ table#t01 th {
 
 
   
+
+</body>

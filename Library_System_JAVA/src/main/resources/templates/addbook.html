@@ -39,8 +39,8 @@
 			<div align="center"><input type="text" th:field = "*{isbn}"/></div>
 			<div align="center">Department: </div>
 			<div align="center"><input type="text" th:field = "*{department.title}"/></div><br>
-			<div align="center"><input type="submit" value = "Add patient"/></div><br>
+			<div align="center"><input type="submit" value = "Add book"/></div><br>
 		</form>
-		<div align = "center"><a href="http://localhost:8080/homeEmployee">Back to home</a></div><br>
+		<div align = "center"><a th:href="@{/homeEmployee/{id}(id=${User.getId_u()})}">Back to home</a></div><br>
 	</body>
  </html>

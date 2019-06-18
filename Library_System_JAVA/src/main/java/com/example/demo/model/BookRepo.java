@@ -17,5 +17,7 @@ public interface BookRepo extends CrudRepository<Book, Integer> {
 	ArrayList<Book> findByAuthor(String author);
 	
 	ArrayList<Book> findByYear(int year);
+	
+	ArrayList<Book> findByDepartmentTitle(String title);
 
 }

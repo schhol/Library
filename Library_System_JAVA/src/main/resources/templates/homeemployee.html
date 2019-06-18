@@ -92,10 +92,10 @@ table#t01 th {
 
 <div class="topnav">
   <div class="topnav-left">
-    <a href="http://localhost:8080/homeEmployee">Home</a>
+    <a th:href="@{/homeEmployee/{id}(id=${User.getId_u()})}">Home</a>
   </div>
   <div class="topnav-right">
-  	<a href="http://localhost:8080/addBook">Add a book</a>
+    <a th:href="@{/addBook/{id}(id=${User.getId_u()})}">Add book</a>
     <a href="http://localhost:8080/homeGuest">Log out</a>
   </div>
 </div>
@@ -115,10 +115,11 @@ table#t01 th {
 
 <!-- Search box -->
 
-
-
-<div align = "center"><input type="text" size="80"  placeholder ="Search..."/></div><br>
-
+<form action="#" th:action="@{/homeEmployee/{id}(id=${User.getId_u()})}" method = "post">
+<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
+<input type="submit" value="Submit"></div><br>
+</form>
+<br>
 
 
 <!-- The table of books-->
@@ -136,7 +137,7 @@ table#t01 th {
   <th:block th:each="book, iterStat : ${allbooks} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
-  	<td th:text="${book.getTitle()}"/>
+  	<td> <a th:href="@{'/employeeBook/' + ${User.getId_u()} + '/' + ${book.getId_b()} }"><th:block th:text="${book.getTitle()}"></a>
   	<td th:text="${book.getTimesTaken()}"/>
   	<td th:text="${book.getYear()}"/>
   </tr>

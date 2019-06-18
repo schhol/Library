@@ -1,0 +1,25 @@
+<html>
+	<head>
+	<style>
+	a:link, a:visited {
+	  background-color: #CCCFD9;
+	  color: #474B58;
+	  padding: 15px 25px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	}
+	
+	a:hover, a:active {
+	  background-color: #474B58;
+	  color: white
+	}
+	</style>
+	</head>
+	
+	<body>
+	<h1 align = "center">No books found by searching:</h1>
+	<div align = "center"><font size = "5"> " <th:block th:text="${keywordReader}"/> " </font> </div><br>
+	<div align = "center"><a th:href="@{/homeReader/{id}(id=${User.getId_u()})}">Back to home</a></div><br>
+	</body>
+</html>
