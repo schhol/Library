@@ -38,12 +38,9 @@ public class LibraryController {
 	
 	@Autowired
 	LibraryDepartmentRepo libraryDepartmentRepo;
-	//ok
 	
 
 	//TODO sasaiste starp book un reader
-
-	//fixeding
 
 	
 	//------------------------------------------------------------------------------------------------------

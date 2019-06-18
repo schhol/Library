@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -32,8 +36,9 @@ public class Reader{
 	@Column(name = "Surname")
 	private String surname;
 	
-	@Column(name = "BookList")
-	private ArrayList <Book> currentTakenBookList;
+	@OneToMany
+	@Column(name = "reader")
+	private List <Book> currentTakenBookList = new ArrayList<>();
 	
 	@OneToOne
 	@JoinColumn(name = "Id_u")
@@ -50,13 +55,6 @@ public class Reader{
 		setName(name);
 		setSurname(surname);
 		setUserRead(userRead);
-	}
-	
-	public Reader(@NotNull @Size(min = 3, max = 15) String name, @NotNull @Size(min = 3, max = 15) String surname, User userRead, ArrayList<Book> books) {
-		setName(name);
-		setSurname(surname);
-		setUserRead(userRead);
-		currentTakenBookList = books;
 	}
 	
 	
@@ -101,26 +99,32 @@ public class Reader{
 		}
 	}
 	
-	public ArrayList<Book> getCurrentTakenBookList() {
+	
+	public List<Book> getCurrentTakenBookList() {
 		return currentTakenBookList;
 	}
+
 	
 	public void setCurrentTakenBookList(ArrayList<Book> currentTakenBookList) {
 		this.currentTakenBookList = currentTakenBookList;
 	}
 
+	
 	public void takeABook(Book book) {
 		this.currentTakenBookList.add(book);
 	}
 
+	
 	public User getUserRead() {
 		return userRead;
 	}
 
+	
 	public void setUserRead(User userRead) {
 		this.userRead = userRead;
 	}
 
+	
 	public int getId_r() {
 		return id_r;
 	}
