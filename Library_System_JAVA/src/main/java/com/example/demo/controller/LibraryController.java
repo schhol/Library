@@ -219,6 +219,7 @@ public class LibraryController {
 	public String readerBookView(Model model, @PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
+		System.out.println("----------------------------------------" + userTemp.getId_u());
 		
 		model.addAttribute("User", userTemp);
 		model.addAttribute("Book", bookTemp);
