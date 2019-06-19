@@ -1,8 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.repos;
 
 import java.util.ArrayList;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.example.demo.model.Book;
+import com.example.demo.model.LibraryDepartment;
 
 public interface BookRepo extends CrudRepository<Book, Integer> {
 	

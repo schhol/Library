@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Book;
-import com.example.demo.model.BookRepo;
-import com.example.demo.model.EmployeeRepo;
 import com.example.demo.model.LibraryDepartment;
-import com.example.demo.model.LibraryDepartmentRepo;
 import com.example.demo.model.Reader;
-import com.example.demo.model.ReaderRepo;
 import com.example.demo.model.User;
-import com.example.demo.model.UserRepo;
+import com.example.demo.repos.BookRepo;
+import com.example.demo.repos.EmployeeRepo;
+import com.example.demo.repos.LibraryDepartmentRepo;
+import com.example.demo.repos.ReaderRepo;
+import com.example.demo.repos.UserRepo;
 
 @Controller
 public class LibraryController {
