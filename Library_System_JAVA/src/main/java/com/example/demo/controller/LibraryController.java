@@ -358,6 +358,7 @@ public class LibraryController {
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		
 		if(bookTemp != null && userTemp != null && readerTemp != null) {
+			
 			for (Book b : readerTemp.getCurrentTakenBookList()) {
 				System.out.println("Gramatu saraksts pirms: " + b.getTitle());
 			}
@@ -366,19 +367,25 @@ public class LibraryController {
 				if(b.equals(bookTemp)) {
 					isInReader = true;
 					break;
+				}
 			}
-			}
+			
 			if(isInReader == true) {
+				System.out.println("Riderim tada book jau ir");
 				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 			}
-			else if(isInReader == false && bookTemp.takeBook()) {
+			else if(isInReader == false && bookTemp.isAvailable()) {
+				bookTemp.takeBook();
 				readerTemp.takeABook(bookTemp);
+				readerRepo.save(readerTemp);
+				System.out.println("book ir panemta");
 				for (Book b : readerTemp.getCurrentTakenBookList()) {
 					System.out.println("Gramatu saraksts pec: "+b.getTitle());
 				}
 				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 			}
 			else {
+				System.out.println("book nav pieejama");
 				return "bookNotAvailable";
 			}
 		}
@@ -408,23 +415,24 @@ public class LibraryController {
 	}
 	
 	
-	
-	//TODO postmapping for return a book
 	@PostMapping(value = "readerBookReturn/{id_u}/{id_b}")
 	public String returningBook(@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
 		boolean isInReader = false;
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		
 		if(bookTemp != null && userTemp != null && readerTemp != null) {
 			for (Book b : readerTemp.getCurrentTakenBookList()) {
 				if(b.equals(bookTemp)) {
 					isInReader = true;
 					break;
+				}
 			}
-			}
-			if(isInReader) {
+			
+			if(isInReader == true) {
 				readerTemp.getCurrentTakenBookList().remove(bookTemp);
+				readerRepo.save(readerTemp);
 				for (Book b : readerTemp.getCurrentTakenBookList()) {
 					System.out.println("Gramatu saraksts pec: " + b.getTitle());
 				}
@@ -442,6 +450,8 @@ public class LibraryController {
 		}
 		
 	}
+	
+	
 	
 	@GetMapping(value = "/departmentScienceReader/{id}")
 	public String departmentScienceReader(Model model, @PathVariable(name = "id") int id){
@@ -484,6 +494,8 @@ public class LibraryController {
 		
 		return "departmentartreader";
 	}
+	
+	
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
