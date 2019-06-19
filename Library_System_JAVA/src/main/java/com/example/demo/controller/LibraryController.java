@@ -358,11 +358,7 @@ public class LibraryController {
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		
 		if(bookTemp != null && userTemp != null && readerTemp != null) {
-			
-			for (Book b : readerTemp.getCurrentTakenBookList()) {
-				System.out.println("Gramatu saraksts pirms: " + b.getTitle());
-			}
-			
+		
 			for (Book b : readerTemp.getCurrentTakenBookList()) {
 				if(b.equals(bookTemp)) {
 					isInReader = true;
@@ -371,21 +367,16 @@ public class LibraryController {
 			}
 			
 			if(isInReader == true) {
-				System.out.println("Riderim tada book jau ir");
 				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 			}
 			else if(isInReader == false && bookTemp.isAvailable()) {
 				bookTemp.takeBook();
 				readerTemp.takeABook(bookTemp);
 				readerRepo.save(readerTemp);
-				System.out.println("book ir panemta");
-				for (Book b : readerTemp.getCurrentTakenBookList()) {
-					System.out.println("Gramatu saraksts pec: "+b.getTitle());
-				}
+				
 				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 			}
 			else {
-				System.out.println("book nav pieejama");
 				return "bookNotAvailable";
 			}
 		}
@@ -433,15 +424,9 @@ public class LibraryController {
 			if(isInReader == true) {
 				readerTemp.getCurrentTakenBookList().remove(bookTemp);
 				readerRepo.save(readerTemp);
-				for (Book b : readerTemp.getCurrentTakenBookList()) {
-					System.out.println("Gramatu saraksts pec: " + b.getTitle());
-				}
 				return "redirect:/readerBook/"+ id_u +"/"+ id_b;
 			}
-			else{
-				for (Book b : readerTemp.getCurrentTakenBookList()) {
-					System.out.println("Gramatu saraksts pec: " + b.getTitle());
-				} 	
+			else{	
 				return "redirect:/readerBook/"+ id_u +"/"+ id_b;
 			}
 		}
