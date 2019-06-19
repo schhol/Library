@@ -27,8 +27,16 @@
 			<div align="center"><input type="text" th:field = "*{author}"/></div>
 			<div align="center">Year: </div>
 			<div align="center"><input type="text" th:field = "*{year}"/></div>
-			<div align="center">Condition: </div>
-			<div align="center"><input type="text" th:field = "*{condition}"/></div>
+			
+			
+			<div align="center">Condition: </div><br>
+			<div align="center"><select th:field = "*{condition}">
+  			<option value="VeryGood">Very Good</option>
+  			<option value="Good">Good</option>
+  			<option value="Fine">Fine</option>
+  			<option value="Bad">Bad</option>
+			</select></div><br>
+			
 			<div align="center">Rating: </div>
 			<div align="center"><input type="text" th:field = "*{rating}"/></div>
 			<div align="center">Rarity: </div>
@@ -37,8 +45,13 @@
 			<div align="center"><input type="text" th:field = "*{anotation}"/></div>
 			<div align="center">ISBN: </div>
 			<div align="center"><input type="text" th:field = "*{isbn}"/></div>
-			<div align="center">Department: </div>
-			<div align="center"><input type="text" th:field = "*{department.title}"/></div><br>
+			<div align="center">Department: </div><br>
+			<div align="center"><select th:field = "*{department.title}">
+  			<option value="Science">Science</option>
+  			<option value="Sport">Sport</option>
+  			<option value="Art">Art</option>
+			</select></div><br>
+			
 			<!--<div align = "center"> Select File: <input id="file"type="file" name="file" th:field = "*{image}"/></div> -->
 			
 			<div align="center"><input type="submit" value = "Add book"/></div><br>
