@@ -442,6 +442,48 @@ public class LibraryController {
 		}
 		
 	}
+	
+	@GetMapping(value = "/departmentScienceReader/{id}")
+	public String departmentScienceReader(Model model, @PathVariable(name = "id") int id){
+		User userTemp = userRepo.findById(id);
+		
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Science");
+		ArrayList<Book> scienceBooks = bookRepo.findByDepartment(departmentTemp);
+		
+		model.addAttribute("User", userTemp);
+		model.addAttribute("ScienceBooks", scienceBooks);
+		
+		return "departmentsciencereader";
+	}
+	
+	
+	
+	@GetMapping(value = "/departmentSportReader/{id}")
+	public String departmentSportReader(Model model,@PathVariable(name = "id") int id){
+		User userTemp = userRepo.findById(id);
+		
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Sport");
+		ArrayList<Book> sportBooks = bookRepo.findByDepartment(departmentTemp);
+		
+		model.addAttribute("User", userTemp);
+		model.addAttribute("SportBooks", sportBooks);
+		
+		return "departmentsportsreader";
+	}
+	
+	
+	@GetMapping(value = "/departmentArtReader/{id}")
+	public String departmentArtReader(Model model, @PathVariable(name = "id") int id){
+		User userTemp = userRepo.findById(id);
+		
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Art");
+		ArrayList<Book> artBooks = bookRepo.findByDepartment(departmentTemp);
+		
+		model.addAttribute("User", userTemp);
+		model.addAttribute("ArtBooks", artBooks);
+		
+		return "departmentartreader";
+	}
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
