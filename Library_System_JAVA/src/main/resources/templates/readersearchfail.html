@@ -42,11 +42,11 @@ body {
 
 <div class="topnav">
   <div class="topnav-left">
-    <a href="http://localhost:8080/homeGuest">Home</a>
+    <a th:href="@{/homeReader/{id}(id=${User.getId_u()})}">Home</a>
   </div>
   <div class="topnav-right">
-    <a href="http://localhost:8080/registration">Register</a>
-    <a href="http://localhost:8080/authorise">Authorise</a>
+    <a th:href="@{/profile/{id}(id=${User.getId_u()})}">Profile</a>
+    <a href="http://localhost:8080/homeGuest">Log out</a>
   </div>
 </div>
 <br>
@@ -57,7 +57,7 @@ body {
 <br>
 <br>
 
-<form action="#" th:action="@{/homeGuest}" method = "post">
+<form action="#" th:action="@{/foundTableReader/{id}(id=${User.getId_u()})}" method = "post">
 <div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
 <input type="submit" value="Submit"></div><br>
 </form>

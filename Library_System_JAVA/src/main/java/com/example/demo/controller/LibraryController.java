@@ -1,13 +1,19 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.BookRepo;
@@ -121,7 +127,10 @@ public class LibraryController {
 	@GetMapping(value = "/guestBook/{id}")
 	public String guestBookView(Model model, @PathVariable(name = "id") int id) {
 		Book bookTemp = bookRepo.findById(id);
-		model.addAttribute("Book", bookTemp);
+		
+			model.addAttribute("Book", bookTemp);
+		
+	
 		
 		return "bookviewguest";
 	}
@@ -300,17 +309,23 @@ public class LibraryController {
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		
 		for (Book b : readerTemp.getCurrentTakenBookList()) {
+			System.out.println("Gramatu saraksts pirms: " + b.getTitle());
+		}
+		
+		for (Book b : readerTemp.getCurrentTakenBookList()) {
 			if(b.equals(bookTemp)) {
 				isInReader = true;
 				break;
 		}
 		}
-		if(isInReader) {
-			return "redirect:/homeGuest";
-			//return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+		if(isInReader == true) {
+			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 		}
-		else if(bookTemp.takeBook()) {
+		else if(isInReader == false && bookTemp.takeBook()) {
 			readerTemp.takeABook(bookTemp);
+			for (Book b : readerTemp.getCurrentTakenBookList()) {
+				System.out.println("Gramatu saraksts pec: "+b.getTitle());
+			}
 			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 		}
 		else {
@@ -347,9 +362,15 @@ public class LibraryController {
 		}
 		if(isInReader) {
 			readerTemp.getCurrentTakenBookList().remove(bookTemp);
+			for (Book b : readerTemp.getCurrentTakenBookList()) {
+				System.out.println("Gramatu saraksts pec: " + b.getTitle());
+			}
 			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
 		}
 		else{
+			for (Book b : readerTemp.getCurrentTakenBookList()) {
+				System.out.println("Gramatu saraksts pec: " + b.getTitle());
+			} 	
 			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
 		}
 	}
@@ -453,12 +474,13 @@ public class LibraryController {
 	}
 			
 	@PostMapping(value = "/addBook/{id}")
-	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id){
-			
+	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id, @RequestParam("image") MultipartFile image){
+		LibraryDepartment depart = libraryDepartmentRepo.findByTitle(book.getDepartment().getTitle());
 		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
 				
 		if(bookTemp == null){
-			Book newBook = book;
+			Book newBook  = book;
+			newBook.setDepartment(depart);
 			bookRepo.save(newBook);
 			return "redirect:/homeEmployee/" + id;
 		}

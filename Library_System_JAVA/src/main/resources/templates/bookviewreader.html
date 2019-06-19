@@ -104,7 +104,7 @@ div.absolute {
 .button {
   background-color: #CCCFD9;
   border: none;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -181,10 +181,9 @@ div.absolute {
 <p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
 </div>
 
-<div class="absolute">
-	<a th:href="@{'/readerBookReturn/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1">Borrow</a>
-</div>
-
+<form action="#" th:action="@{'/readerBook/' + ${User.getId_u()} + '/' + ${Book.getId_b()}}" method = "post">
+<div class="absolute"><input type = "submit" value = "Borrow" th:href="@{'/readerBookReturn/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1"></a></div>
+</form>
   
 
 </body>

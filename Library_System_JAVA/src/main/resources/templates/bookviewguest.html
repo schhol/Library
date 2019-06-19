@@ -121,7 +121,7 @@ textarea {
 <br>
 
 <div align = "center">
-  <font size="3"><h1 th:text="${Book.getTitle()}"></h1></font>
+  
 </div>
 <br>
 
@@ -129,6 +129,7 @@ textarea {
 <!-- Left side list -->
 
 <div class = "sidebyside" align = "center">
+<p><b>Title: </b><th:block th:text="${Book.getTitle()}"></p>
 <p><b>Author: </b><th:block th:text="${Book.getAuthor()}"></p>
 <p><b>Year: </b><th:block th:text="${Book.getYear()}"></p>
 <p><b>Rating: </b><th:block th:text="${Book.getRating()} + ' / 5'"></p>
@@ -144,6 +145,8 @@ textarea {
 <p><b>Anotation:</b></p>
 <textarea readonly id="anotation" name="anotation"><th:block th:text = "${Book.getAnotation()}"></textarea>
 </div>
+
+
 
   
 

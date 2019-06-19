@@ -93,10 +93,11 @@ public class Book{
 	}
 
 	
-	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation, LibraryDepartment department) {
+	public Book(String isbn, int year, String title,/*byte[] image */ String author, double rating, String condition, int rarity, String anotation, LibraryDepartment department) {
 		setIsbn(isbn);
 		setYear(year);
 		setTitle(title);
+		//setImage(image);
 		setAuthor(author);
 		setRating(rating);
 		setCondition(condition);
@@ -107,10 +108,11 @@ public class Book{
 		timesTaken = 0;
 	}
 	
-	public Book(String isbn, int year, String title, String author, double rating, String condition, int rarity, String anotation) {
+	public Book(String isbn, int year, String title,/*byte[] image,*/ String author, double rating, String condition, int rarity, String anotation) {
 		setIsbn(isbn);
 		setYear(year);
 		setTitle(title);
+		//setImage(image);
 		setAuthor(author);
 		setRating(rating);
 		setCondition(condition);
