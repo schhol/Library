@@ -607,7 +607,7 @@ public class LibraryController {
 	
 	
 	@PostMapping(value = "/addBook/{id}")
-	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id, @RequestParam("image") MultipartFile image){
+	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id){
 		LibraryDepartment depart = libraryDepartmentRepo.findByTitle(book.getDepartment().getTitle());
 		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
 		if(depart != null) {
