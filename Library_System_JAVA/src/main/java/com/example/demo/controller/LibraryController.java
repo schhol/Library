@@ -58,13 +58,18 @@ public class LibraryController {
 	public String homeGuest(Model model) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		ArrayList<Book> top5Books = new ArrayList<>();
-		
-		for (int i = 0; i < 5; i++) {
-			top5Books.add(allBooksFromDB.get(i));
+		if(allBooksFromDB != null) {
+			for (int i = 0; i < 5; i++) {
+				top5Books.add(allBooksFromDB.get(i));
+			}
+			
+			model.addAttribute("allbooks", top5Books);
+			return "homeguest";
+		}
+		else {
+			return "error";
 		}
 		
-		model.addAttribute("allbooks", top5Books);
-		return "homeguest";
 	}
 	
 	
@@ -100,7 +105,7 @@ public class LibraryController {
 		foundBooks.addAll(bookRepo.findByTitle(keywordGuest));
 		
 		foundBooks.addAll(bookRepo.findByYear(year));
-		
+	
 		model.addAttribute("keywordGuest", keywordGuest);
 		model.addAttribute("booksfound", foundBooks);
 		
@@ -129,11 +134,15 @@ public class LibraryController {
 	public String guestBookView(Model model, @PathVariable(name = "id") int id) {
 		Book bookTemp = bookRepo.findById(id);
 		
+		if(bookTemp != null) {
 			model.addAttribute("Book", bookTemp);
+			
+			return "bookviewguest";
+		}
+		else {
+			return "error";
+		}
 		
-	
-		
-		return "bookviewguest";
 	}
 	
 	
@@ -142,9 +151,14 @@ public class LibraryController {
 		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Science");
 		ArrayList<Book> scienceBooks = bookRepo.findByDepartment(departmentTemp);
 		
-		model.addAttribute("ScienceBooks", scienceBooks);
+		if(departmentTemp != null && scienceBooks != null) {
+			model.addAttribute("ScienceBooks", scienceBooks);
 		
-		return "departmentscienceguest";
+			return "departmentscienceguest";
+		}
+		else {
+			return "error";
+		}
 	}
 	
 	
@@ -154,9 +168,14 @@ public class LibraryController {
 		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Sport");
 		ArrayList<Book> sportBooks = bookRepo.findByDepartment(departmentTemp);
 		
-		model.addAttribute("SportBooks", sportBooks);
-		
-		return "departmentsportguest";
+		if(departmentTemp != null && sportBooks != null) {
+			model.addAttribute("SportBooks", sportBooks);
+			
+			return "departmentsportguest";
+		}
+		else {
+			return "error";
+		}
 	}
 	
 	
@@ -165,9 +184,14 @@ public class LibraryController {
 		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Art");
 		ArrayList<Book> artBooks = bookRepo.findByDepartment(departmentTemp);
 		
-		model.addAttribute("ArtBooks", artBooks);
-		
-		return "departmentartguest";
+		if(departmentTemp != null && artBooks != null) {
+			model.addAttribute("ArtBooks", artBooks);
+			
+			return "departmentartguest";
+		}
+		else {
+			return "error";
+		}
 	}
 	
 	
@@ -182,16 +206,26 @@ public class LibraryController {
 	public String homeReader(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		ArrayList<Book> top5Books = new ArrayList<>();
+		User userTemp = userRepo.findById(id);
+		
+		if(userTemp != null && allBooksFromDB != null) {
 		
 		for (int i = 0; i < 5; i++) {
 			top5Books.add(allBooksFromDB.get(i));
 		}
 		
-		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
 		
-		model.addAttribute("allbooks", top5Books);
-		return "homereader";
+		
+		
+			model.addAttribute("User", userTemp);
+			
+			model.addAttribute("allbooks", top5Books);
+			return "homereader";
+		}
+		else {
+			return "error";
+		}
+		
 	}
 	
 	
@@ -231,17 +265,25 @@ public class LibraryController {
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
 		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
 		
-		model.addAttribute("keywordReader", keywordReader);
-		model.addAttribute("booksfound", foundBooks);
-		
-		if(foundBooks.isEmpty() || keywordReader == "") {
-			return "readersearchfail";
+		if(userTemp != null) {
+			model.addAttribute("User", userTemp);
+			
+			model.addAttribute("keywordReader", keywordReader);
+			model.addAttribute("booksfound", foundBooks);
+			
+			if(foundBooks.isEmpty() || keywordReader == "") {
+				return "readersearchfail";
+			}
+			else {
+				return "foundbooksreader";
+			}
 		}
 		else {
-			return "foundbooksreader";
+			return "error";
 		}
+		
+		
 		
 	}
 
@@ -261,6 +303,7 @@ public class LibraryController {
 	public String readerProfile(Model model, @PathVariable(name = "id") int id) {
 		User userTemp = userRepo.findById(id);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		
 		if(userTemp != null && readerTemp != null) {
 			if(readerTemp.getCurrentTakenBookList().isEmpty()) {
 				model.addAttribute("User", userTemp);
@@ -268,12 +311,12 @@ public class LibraryController {
 			}
 			else {
 				model.addAttribute("User", userTemp);
-				
 				model.addAttribute("allbooks", readerTemp.getCurrentTakenBookList());
 				return "readerprofile";
 			}
 			
 		}
+		
 		else {
 			return "error";
 		}
@@ -295,11 +338,16 @@ public class LibraryController {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 
+		if(bookTemp != null && userTemp != null) {
+			model.addAttribute("User", userTemp);
+			model.addAttribute("Book", bookTemp);
+			
+			return "bookviewreader";
+		}
+		else {
+			return "error";
+		}
 		
-		model.addAttribute("User", userTemp);
-		model.addAttribute("Book", bookTemp);
-		
-		return "bookviewreader";
 	}
 	
 	@PostMapping(value = "readerBook/{id_u}/{id_b}")
@@ -309,28 +357,33 @@ public class LibraryController {
 		User userTemp = userRepo.findById(id_u);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		
-		for (Book b : readerTemp.getCurrentTakenBookList()) {
-			System.out.println("Gramatu saraksts pirms: " + b.getTitle());
-		}
-		
-		for (Book b : readerTemp.getCurrentTakenBookList()) {
-			if(b.equals(bookTemp)) {
-				isInReader = true;
-				break;
-		}
-		}
-		if(isInReader == true) {
-			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
-		}
-		else if(isInReader == false && bookTemp.takeBook()) {
-			readerTemp.takeABook(bookTemp);
+		if(bookTemp != null && userTemp != null && readerTemp != null) {
 			for (Book b : readerTemp.getCurrentTakenBookList()) {
-				System.out.println("Gramatu saraksts pec: "+b.getTitle());
+				System.out.println("Gramatu saraksts pirms: " + b.getTitle());
 			}
-			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+			
+			for (Book b : readerTemp.getCurrentTakenBookList()) {
+				if(b.equals(bookTemp)) {
+					isInReader = true;
+					break;
+			}
+			}
+			if(isInReader == true) {
+				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+			}
+			else if(isInReader == false && bookTemp.takeBook()) {
+				readerTemp.takeABook(bookTemp);
+				for (Book b : readerTemp.getCurrentTakenBookList()) {
+					System.out.println("Gramatu saraksts pec: "+b.getTitle());
+				}
+				return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+			}
+			else {
+				return "bookNotAvailable";
+			}
 		}
 		else {
-			return "bookNotAvailable";
+			return "error";
 		}
 		
 		
@@ -342,11 +395,20 @@ public class LibraryController {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 		
-		model.addAttribute("User", userTemp);
-		model.addAttribute("Book", bookTemp);
+		if(bookTemp != null && userTemp != null) {
+			model.addAttribute("User", userTemp);
+			model.addAttribute("Book", bookTemp);
+			
+			return"bookviewreaderreturn";
+		}
+		else {
+			return "error";
+		}
 		
-		return"bookviewreaderreturn";
 	}
+	
+	
+	
 	//TODO postmapping for return a book
 	@PostMapping(value = "readerBookReturn/{id_u}/{id_b}")
 	public String returningBook(@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
@@ -354,26 +416,31 @@ public class LibraryController {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
-		
-		for (Book b : readerTemp.getCurrentTakenBookList()) {
-			if(b.equals(bookTemp)) {
-				isInReader = true;
-				break;
-		}
-		}
-		if(isInReader) {
-			readerTemp.getCurrentTakenBookList().remove(bookTemp);
+		if(bookTemp != null && userTemp != null && readerTemp != null) {
 			for (Book b : readerTemp.getCurrentTakenBookList()) {
-				System.out.println("Gramatu saraksts pec: " + b.getTitle());
+				if(b.equals(bookTemp)) {
+					isInReader = true;
+					break;
 			}
-			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+			}
+			if(isInReader) {
+				readerTemp.getCurrentTakenBookList().remove(bookTemp);
+				for (Book b : readerTemp.getCurrentTakenBookList()) {
+					System.out.println("Gramatu saraksts pec: " + b.getTitle());
+				}
+				return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+			}
+			else{
+				for (Book b : readerTemp.getCurrentTakenBookList()) {
+					System.out.println("Gramatu saraksts pec: " + b.getTitle());
+				} 	
+				return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+			}
 		}
-		else{
-			for (Book b : readerTemp.getCurrentTakenBookList()) {
-				System.out.println("Gramatu saraksts pec: " + b.getTitle());
-			} 	
-			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+		else {
+			return "error";
 		}
+		
 	}
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
@@ -385,10 +452,17 @@ public class LibraryController {
 		ArrayList<Book> allBooksFromDB = (ArrayList<Book>) bookRepo.findByOrderByTimesTakenDesc();
 		
 		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
 		
-		model.addAttribute("allbooks", allBooksFromDB);
-		return "homeemployee";
+		if(userTemp != null && allBooksFromDB != null) {
+			model.addAttribute("User", userTemp);
+			
+			model.addAttribute("allbooks", allBooksFromDB);
+			return "homeemployee";
+		}
+		else {
+			return "error";
+		}
+		
 	}
 	
 	
@@ -426,18 +500,23 @@ public class LibraryController {
 		foundBooks.addAll(bookRepo.findByYear(year));
 		
 		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
 		
-		model.addAttribute("keywordEmployee", keywordEmployee);
-		model.addAttribute("booksfound", foundBooks);
-		
-		if(foundBooks.isEmpty() || keywordEmployee == "") {
-			return "employeesearchfail";
+		if(userTemp != null) {
+			model.addAttribute("User", userTemp);
+			
+			model.addAttribute("keywordEmployee", keywordEmployee);
+			model.addAttribute("booksfound", foundBooks);
+			
+			if(foundBooks.isEmpty() || keywordEmployee == "") {
+				return "employeesearchfail";
+			}
+			else {
+				return "foundbooksemployee";
+			}
 		}
 		else {
-			return "foundbooksemployee";
+			return "error";
 		}
-		
 	}
 
 	
@@ -457,11 +536,17 @@ public class LibraryController {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 	
+		if(bookTemp != null && userTemp != null) {
+			model.addAttribute("User", userTemp);
+			model.addAttribute("Book", bookTemp);
+			
+			return "bookviewemployee";
+		}
+		else {
+			return "error";
+		}
 		
-		model.addAttribute("User", userTemp);
-		model.addAttribute("Book", bookTemp);
 		
-		return "bookviewemployee";
 	}
 	
 	
@@ -470,31 +555,44 @@ public class LibraryController {
 	@GetMapping(value = "/addBook/{id}")
 	public String addBook(Model model, Book book, @PathVariable(name = "id") int id){
 		User userTemp = userRepo.findById(id);
-		model.addAttribute("User", userTemp);
-		return "addbook";
+		
+		if(userTemp != null) {
+			model.addAttribute("User", userTemp);
+			return "addbook";
+		}
+		else {
+			return "error";
+		}
+		
 	}
-			
+	
+	
 	@PostMapping(value = "/addBook/{id}")
 	public String addBookPost(Model model, Book book, @PathVariable(name = "id") int id, @RequestParam("image") MultipartFile image){
 		LibraryDepartment depart = libraryDepartmentRepo.findByTitle(book.getDepartment().getTitle());
 		Book bookTemp = bookRepo.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
+		if(depart != null) {
+			if(bookTemp == null){
+				Book newBook  = book;
+				newBook.setDepartment(depart);
+				bookRepo.save(newBook);
+				return "redirect:/homeEmployee/" + id;
+			}
 				
-		if(bookTemp == null){
-			Book newBook  = book;
-			newBook.setDepartment(depart);
-			bookRepo.save(newBook);
-			return "redirect:/homeEmployee/" + id;
+			else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
+				bookTemp.addCopy();
+				bookRepo.save(bookTemp);
+				return "redirect:/homeEmployee/" + id;
+			}
+				
+			else{
+				return "addbookfail";
+			}
 		}
-			
-		else if(bookTemp.getCoppies() >= 1 && bookTemp.getCoppies() < 5) {
-			bookTemp.addCopy();
-			bookRepo.save(bookTemp);
-			return "redirect:/homeEmployee/" + id;
+		else {
+			return "error";
 		}
-			
-		else{
-			return "addbookfail";
-		}
+		
 	}
 	
 	
