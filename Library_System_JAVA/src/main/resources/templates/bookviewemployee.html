@@ -137,11 +137,11 @@ div.absolute {
 
 <div class="topnav">
   <div class="topnav-left">
-    <a href="http://localhost:8080/homeGuest">Home</a>
+    <a th:href="@{/homeEmployee/{id}(id=${User.getId_u()})}">Home</a>
   </div>
   <div class="topnav-right">
-    <a href="http://localhost:8080/registration">Register</a>
-    <a href="http://localhost:8080/authorise">Authorise</a>
+    <a th:href="@{/addBook/{id}(id=${User.getId_u()})}">Add book</a>
+    <a href="http://localhost:8080/homeGuest">Log out</a>
   </div>
 </div>
 <br>
