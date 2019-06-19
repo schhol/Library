@@ -111,7 +111,7 @@ table#t01 th {
 
 <!-- Search box -->
 
-<form action="#" th:action="@{//profile/{id}}" method = "post">
+<form action="#" th:action="@{/profile/{id}(id=${User.getId_u()})}" method = "post">
 <div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
 <input type="submit" value="Submit"></div><br>
 </form>
