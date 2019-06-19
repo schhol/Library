@@ -107,25 +107,34 @@ table#t01 th {
   <font size="7"> Library System </font>
   <br>
   <br>
-  <font size="5"> No books have been taken! </font>
 </div>
-<br>
-<br>
+
 
 <!-- Search box -->
 
-<form action="#" th:action="@{//profile/{id}}" method = "post">
+<form action="#" th:action="@{/profile/{id}(id=${User.getId_u()})}" method = "post">
 <div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
 <input type="submit" value="Submit"></div><br>
 </form>
+<br>
 <br>
 
 <!-- Left side list -->
 
 <div class = "sidebyside">
 <div class = "center"><h3>User info:</h3></div>
-<div class = "link"><p>Name</p></div>
-<div class = "link"><p>Surname</p></div>
+<div class = "link"><p>Name: <th:block th:text="${User.getReader().getName()}"></p></div>
+<div class = "link"><p>Surname: <th:block th:text="${User.getReader().getSurname()}"></p></div>
 </div>
+
+<div align = "center">
+  <br>
+  <br>
+  <font size="5"><b> No books have been taken! </b></font>
+</div>
+<br>
+<br>
+
+
 
 

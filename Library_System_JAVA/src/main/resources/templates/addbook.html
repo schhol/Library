@@ -20,7 +20,7 @@
 	
 	<body>
 		<h1 align="center">New book</h1><br>
-		<form action ="#" th:action = "@{/addBook}" th:object = "${book}" method = "post">
+		<form action ="#" th:action = "@{/addBook/__${id}__}" th:object = "${book}" method = "post">
 			<div align="center"> Title: </div>
 			<div align="center"><input type="text" th:field = "*{title}"/></div>
 			<div align="center">Author: </div>
@@ -39,6 +39,8 @@
 			<div align="center"><input type="text" th:field = "*{isbn}"/></div>
 			<div align="center">Department: </div>
 			<div align="center"><input type="text" th:field = "*{department.title}"/></div><br>
+			<!--<div align = "center"> Select File: <input id="file"type="file" name="file" th:field = "*{image}"/></div> -->
+			
 			<div align="center"><input type="submit" value = "Add book"/></div><br>
 		</form>
 		<div align = "center"><a th:href="@{/homeEmployee/{id}(id=${User.getId_u()})}">Back to home</a></div><br>

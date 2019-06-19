@@ -181,9 +181,9 @@ div.absolute {
 <p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
 </div>
 
-<div class="absolute">
-	<a th:href="@{'/readerBook/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1">Return</a>
-</div>
+<form action="#" th:action="@{'/readerBookReturn/' + ${User.getId_u()} + '/' + ${Book.getId_b()}}" method = "post">
+<div class="absolute"><input type = "submit" value = "Return" th:href="@{'/readerBookReturn/' + ${User.getId_u()} + '/' + ${Book.getId_b()} }" class="button button1"></a></div>
+</form>
 
   
 

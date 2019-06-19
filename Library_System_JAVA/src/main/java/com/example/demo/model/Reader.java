@@ -38,7 +38,7 @@ public class Reader{
 	
 	@OneToMany
 	@Column(name = "reader")
-	private List <Book> currentTakenBookList = new ArrayList<>();
+	private Collection<Book> currentTakenBookList;
 	
 	@OneToOne
 	@JoinColumn(name = "Id_u")
@@ -100,12 +100,12 @@ public class Reader{
 	}
 	
 	
-	public List<Book> getCurrentTakenBookList() {
+	public Collection<Book> getCurrentTakenBookList() {
 		return currentTakenBookList;
 	}
 
 	
-	public void setCurrentTakenBookList(ArrayList<Book> currentTakenBookList) {
+	public void setCurrentTakenBookList(Collection<Book> currentTakenBookList) {
 		this.currentTakenBookList = currentTakenBookList;
 	}
 
