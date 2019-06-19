@@ -35,7 +35,7 @@ public class Book{
 	private int year;
 	
 	@NotNull
-	@Size(min = 3, max = 15)
+	@Size(min = 3, max = 30)
 	@Column(name = "Title")
 	private String title;
 	
@@ -44,7 +44,7 @@ public class Book{
 	private byte[] image;
 	
 	@NotNull
-	@Size(min = 4, max =26)
+	@Size(min = 4, max =300)
 	@Column(name = "Author")
 	private String author;
 	
@@ -60,7 +60,7 @@ public class Book{
 	private int rarity;
 	
 	@NotNull
-	@Size(min = 10, max = 200)
+	@Size(min = 10, max = 500)
 	@Column(name = "Anotation")
 	private String anotation;
 	
