@@ -253,22 +253,27 @@ public class LibraryController {
 	
 	@PostMapping(value = "readerBook/{id_u}/{id_b}")
 	public String bookSavingToReader(@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
-		
+		boolean isInReader = false;
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
-		//TODO check if reader has the book
-		//if(readerTemp.) {
-			
 		
-		 if(bookTemp.takeBook()) {
+		for (Book b : readerTemp.getCurrentTakenBookList()) {
+			if(b.equals(bookTemp)) {
+				isInReader = true;
+				break;
+		}
+		}
+		if(isInReader) {
+			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+		}
+		else if(bookTemp.takeBook()) {
 			readerTemp.takeABook(bookTemp);
 			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 		}
 		else {
 			return "bookNotAvailable";
 		}
-		
 		
 		
 	}
@@ -284,6 +289,28 @@ public class LibraryController {
 		model.addAttribute("Book", bookTemp);
 		
 		return"bookviewreaderreturn";
+	}
+	//TODO postmapping for return a book
+	@PostMapping(value = "readerBookReturn/{id_u}/{id_b}")
+	public String returningBook(@PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
+		boolean isInReader = false;
+		Book bookTemp = bookRepo.findById(id_b);
+		User userTemp = userRepo.findById(id_u);
+		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		
+		for (Book b : readerTemp.getCurrentTakenBookList()) {
+			if(b.equals(bookTemp)) {
+				isInReader = true;
+				break;
+		}
+		}
+		if(isInReader) {
+			readerTemp.getCurrentTakenBookList().remove(bookTemp);
+			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+		}
+		else{
+			return "redirect:/readerBook/"+ id_u +"/"+ id_b;
+		}
 	}
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------EMPLOYEE--------------------------------------------------
