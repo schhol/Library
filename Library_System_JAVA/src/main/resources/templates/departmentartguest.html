@@ -118,7 +118,7 @@ table#t01 th {
     <th>Borrows</th>
     <th>Year</th>
   </tr>
-  <th:block th:each="book, iterStat : ${SportBooks} ">
+  <th:block th:each="book, iterStat : ${ArtBooks} ">
   <tr>
   	<td th:text="${iterStat.count}"/>
   	<td> <a th:href="@{/guestBook/{id}(id=${book.getId_b()})}"><th:block th:text="${book.getTitle()}"></a>

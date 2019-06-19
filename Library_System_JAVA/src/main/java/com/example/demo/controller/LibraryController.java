@@ -8,11 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Book;
 import com.example.demo.model.BookRepo;
-import com.example.demo.model.Employee;
 import com.example.demo.model.EmployeeRepo;
 import com.example.demo.model.LibraryDepartment;
 import com.example.demo.model.LibraryDepartmentRepo;
@@ -41,7 +39,6 @@ public class LibraryController {
 	
 
 	//TODO pabeigt department meklesanas
-	//komenc
 
 	
 	//------------------------------------------------------------------------------------------------------
@@ -70,7 +67,7 @@ public class LibraryController {
 	public String SearchBookGuest(String keyname) {
 		
 		keywordGuest = keyname; 
-		System.out.println("-------------------------------" + keyname);
+
 		return "redirect:/foundTableGuest";
 	}
 	
@@ -79,7 +76,6 @@ public class LibraryController {
 	@GetMapping(value = "/foundTableGuest")
 	public String booksFoundGuest(Model model) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keywordGuest);
 		
 		int count = 0;
 		int year = 0;
@@ -116,7 +112,7 @@ public class LibraryController {
 	public String searchSearchBookGuest(String keyname) {
 		
 		keywordGuest = keyname; 
-		System.out.println("-------------------------------" + keyname);
+		
 		return "redirect:/foundTableGuest";
 	}
 	
@@ -133,7 +129,8 @@ public class LibraryController {
 	
 	@GetMapping(value = "/departmentScienceGuest")
 	public String departmentScienceGuest(Model model){
-		ArrayList<Book> scienceBooks = bookRepo.findByDepartmentTitle("science");
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Science");
+		ArrayList<Book> scienceBooks = bookRepo.findByDepartment(departmentTemp);
 		
 		model.addAttribute("ScienceBooks", scienceBooks);
 		
@@ -142,9 +139,33 @@ public class LibraryController {
 	
 	
 	
+	@GetMapping(value = "/departmentSportGuest")
+	public String departmentSportGuest(Model model){
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Sport");
+		ArrayList<Book> sportBooks = bookRepo.findByDepartment(departmentTemp);
+		
+		model.addAttribute("SportBooks", sportBooks);
+		
+		return "departmentsportguest";
+	}
+	
+	
+	@GetMapping(value = "/departmentArtGuest")
+	public String departmentArtGuest(Model model){
+		LibraryDepartment departmentTemp = libraryDepartmentRepo.findByTitle("Art");
+		ArrayList<Book> artBooks = bookRepo.findByDepartment(departmentTemp);
+		
+		model.addAttribute("ArtBooks", artBooks);
+		
+		return "departmentartguest";
+	}
+	
+	
+	
 	//------------------------------------------------------------------------------------------------------
 	//--------------------------------------------READER----------------------------------------------------
 	//------------------------------------------------------------------------------------------------------
+	
 	
 	
 	@GetMapping(value = "/homeReader/{id}")
@@ -171,7 +192,7 @@ public class LibraryController {
 	public String SearchBookReader(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordReader = keyname; 
-		System.out.println("-------------------------------" + keyname);
+
 		return "redirect:/foundTableReader/"+id;
 	}
 	
@@ -181,7 +202,6 @@ public class LibraryController {
 	@GetMapping(value = "/foundTableReader/{id}")
 	public String booksFoundReader(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keywordReader);
 		
 		int count = 0;
 		int year = 0;
@@ -221,7 +241,7 @@ public class LibraryController {
 	public String searchSearchBookReader(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordReader = keyname; 
-		System.out.println("-------------------------------" + keyname);
+
 		return "redirect:/foundTableReader/"+id;
 	}
 	
@@ -231,11 +251,31 @@ public class LibraryController {
 	public String readerProfile(Model model, @PathVariable(name = "id") int id) {
 		User userTemp = userRepo.findById(id);
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
+		if(userTemp != null && readerTemp != null) {
+			if(readerTemp.getCurrentTakenBookList().isEmpty()) {
+				return "readerprofileempty";
+			}
+			else {
+				model.addAttribute("User", userTemp);
+				
+				model.addAttribute("allbooks", readerTemp.getCurrentTakenBookList());
+				return "readerprofile";
+			}
+			
+		}
+		else {
+			return "error";
+		}
 		
-		model.addAttribute("User", userTemp);
 		
-		model.addAttribute("allbooks", readerTemp.getCurrentTakenBookList());
-		return "readerprofile";
+	}
+	
+	@PostMapping(value = "/profile/{id}")
+	public String profilePost(Model model, String keyname, @PathVariable(name = "id") int id) {
+		
+		keywordReader = keyname; 
+
+		return "redirect:/foundTableReader/"+id;
 	}
 	
 
@@ -243,7 +283,7 @@ public class LibraryController {
 	public String readerBookView(Model model, @PathVariable(name = "id_u") int id_u, @PathVariable(name = "id_b") int id_b) {
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
-		System.out.println("----------------------------------------" + userTemp.getId_u());
+
 		
 		model.addAttribute("User", userTemp);
 		model.addAttribute("Book", bookTemp);
@@ -283,7 +323,6 @@ public class LibraryController {
 		
 		Book bookTemp = bookRepo.findById(id_b);
 		User userTemp = userRepo.findById(id_u);
-		System.out.println("----------------------------------------" + userTemp.getId_u());
 		
 		model.addAttribute("User", userTemp);
 		model.addAttribute("Book", bookTemp);
@@ -335,7 +374,7 @@ public class LibraryController {
 	public String SearchBookEmployee(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordEmployee = keyname; 
-		System.out.println("-------------------------------" + keyname);
+
 		return "redirect:/foundTableEmployee/" + id;
 	}
 	
@@ -344,7 +383,6 @@ public class LibraryController {
 	@GetMapping(value = "/foundTableEmployee/{id}")
 	public String booksFoundEmployee(Model model, @PathVariable(name = "id") int id) {
 		ArrayList<Book> foundBooks = new ArrayList<Book>();
-		System.out.println(keywordEmployee);
 		
 		int count = 0;
 		int year = 0;
@@ -384,7 +422,7 @@ public class LibraryController {
 	public String searchSearchBookEmployee(String keyname, @PathVariable(name = "id") int id) {
 		
 		keywordEmployee = keyname; 
-		System.out.println("-------------------------------" + keyname);
+
 		return "redirect:/foundTableEmployee" + id;
 	}
 	
