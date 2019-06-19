@@ -1,25 +1,123 @@
+<!DOCTYPE HTML>
+<html xmlns:th="www.thymeleaf.org">
 <html>
-	<head>
-	<style>
-	a:link, a:visited {
-	  background-color: #CCCFD9;
-	  color: #474B58;
-	  padding: 15px 25px;
-	  text-align: center;
-	  text-decoration: none;
-	  display: inline-block;
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #CCCFD9;
+}
+
+.topnav a {
+  float: left;
+  color: #474B58;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #474B58;
+  color: white;
+}
+
+.topnav a.active {
+  background-color: #CCCFD9;
+  color: black;
+}
+
+.topnav-right {
+  float: right;
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a href="http://localhost:8080/homeGuest">Home</a>
+  </div>
+  <div class="topnav-right">
+    <a href="http://localhost:8080/registration">Register</a>
+    <a href="http://localhost:8080/authorise">Authorise</a>
+  </div>
+</div>
+<br>
+
+<div align = "center">
+  <font size="7">Library System</font>
+</div>
+<br>
+<br>
+
+<form action="#" th:action="@{/homeGuest}" method = "post">
+<div align = "center"><input type="text" size="80"  placeholder ="Search..."/ th:value = "${keyname}" name = "keyname">
+<input type="submit" value="Submit"></div><br>
+</form>
+<br>
+
+<style>
+.sidebyside {
+	float: left;
+	padding: 0px 30px;
 	}
-	
-	a:hover, a:active {
-	  background-color: #474B58;
-	  color: white
-	}
-	</style>
-	</head>
-	
-	<body>
-	<h1 align = "center">No books found by searching:</h1>
-	<div align = "center"><font size = "5"> " <th:block th:text="${keywordGuest}"/> " </font> </div><br>
-	<div align = "center"><a href="http://localhost:8080/homeGuest">Back to home</a></div><br>
-	</body>
-</html>
+</style>
+
+<style>
+
+.center h3 {
+  position: relative;
+  top: 1000%;
+  left: 50%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 100%);
+}
+
+.link p {
+  position: relative;
+  top: 1000%;
+  left: 55%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 100%);
+}
+</style>
+<div class = "sidebyside">
+<div class = "center"><h3>Search in departments:</h3></div><br>
+<div class = "link"><a href="http://localhost:8080/departmentScienceGuest">Science</a></div><br>
+<div class = "link"><a href="http://localhost:8080/departmentSportGuest">Sport</a></div><br>
+<div class = "link"><a href="http://localhost:8080/departmentArtGuest">Art</a></div><br>
+</div>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+table#t01 th {
+  background-color: #CCCFD9;
+  color: black;
+}
+</style>
+
+
+<table id="t01" align="left" style = "width:60%">
+	<caption align = "left"><font size = "5">Search results for: " <th:block th:text="${keywordGuest}"/> "</font></caption>
+	<br>
+	<br>
+	<caption align = "left"><font size = "5"><b>No books found!</b></font></caption>
+</table>
+
+<div class = "sidebyside">
+<div class = "center"><h3>Contacts</h3></div>
+<div class = "link"><p>Phone: +37120202122</p></div>
+<div class = "link"><p>Address: Putnu 2</p></div>

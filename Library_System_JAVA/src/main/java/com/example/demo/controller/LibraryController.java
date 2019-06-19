@@ -253,6 +253,7 @@ public class LibraryController {
 		Reader readerTemp = readerRepo.findByUserRead(userTemp);
 		if(userTemp != null && readerTemp != null) {
 			if(readerTemp.getCurrentTakenBookList().isEmpty()) {
+				model.addAttribute("User", userTemp);
 				return "readerprofileempty";
 			}
 			else {
@@ -305,7 +306,8 @@ public class LibraryController {
 		}
 		}
 		if(isInReader) {
-			return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
+			return "redirect:/homeGuest";
+			//return "redirect:/readerBookReturn/"+ id_u +"/"+ id_b;
 		}
 		else if(bookTemp.takeBook()) {
 			readerTemp.takeABook(bookTemp);
