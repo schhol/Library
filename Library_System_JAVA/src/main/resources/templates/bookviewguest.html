@@ -40,7 +40,7 @@ body {
 
 <style>
 .sidebyside {
-	float: center;
+	float: left;
 	padding: 0px 30px;
 	}
 </style>
@@ -89,6 +89,40 @@ textarea {
 }
 </style>
 
+<!-- button -->
+<style>
+div.absolute {
+  position: absolute;
+  width: 50%;
+  bottom: 100px;
+  right: 25%
+
+}
+</style>
+
+<style>
+.button {
+  background-color: #CCCFD9;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+
+<style>
+.button1 {width: 100%;}
+</style>
+
+<style>
+.button1:hover {
+  background-color: #474B58;
+  color: white;
+}
+</style>
 </head>
 
 
@@ -121,22 +155,14 @@ textarea {
 <br>
 
 <div align = "center">
-  
+  <font size="3"><h1 th:text="${Book.getTitle()}"></h1></font>
 </div>
 <br>
 
 
 <!-- Left side list -->
 
-<div class = "sidebyside" align = "center">
-<p><b>Title: </b><th:block th:text="${Book.getTitle()}"></p>
-<p><b>Author: </b><th:block th:text="${Book.getAuthor()}"></p>
-<p><b>Year: </b><th:block th:text="${Book.getYear()}"></p>
-<p><b>Rating: </b><th:block th:text="${Book.getRating()} + ' / 5'"></p>
-<p><b>Condition: </b><th:block th:text="${Book.getCondition()}"></p>
-<p><b>Rarity: </b><th:block th:text="${Book.getRarity()}"></p>
-<p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
-</div>
+
 
 
 <!-- Annotation -->
@@ -146,8 +172,13 @@ textarea {
 <textarea readonly id="anotation" name="anotation"><th:block th:text = "${Book.getAnotation()}"></textarea>
 </div>
 
-
-
-  
+<div class = "sidebyside" align = "center">
+<p><b>Author: </b><th:block th:text="${Book.getAuthor()}"></p>
+<p><b>Year: </b><th:block th:text="${Book.getYear()}"></p>
+<p><b>Rating: </b><th:block th:text="${Book.getRating()} + ' / 5'"></p>
+<p><b>Condition: </b><th:block th:text="${Book.getCondition()}"></p>
+<p><b>Rarity: </b><th:block th:text="${Book.getRarity()}"></p>
+<p><b>ISBN: </b><th:block th:text="${Book.getIsbn()}"></p>
+</div>
 
 </body>
